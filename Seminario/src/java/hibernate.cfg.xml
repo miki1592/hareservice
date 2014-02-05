@@ -2,10 +2,26 @@
 <!DOCTYPE hibernate-configuration PUBLIC "-//Hibernate/Hibernate Configuration DTD 3.0//EN" "http://hibernate.sourceforge.net/hibernate-configuration-3.0.dtd">
 <hibernate-configuration>
   <session-factory>
-    <property name="hibernate.dialect">org.hibernate.dialect.DerbyDialect</property>
-    <property name="hibernate.connection.driver_class">org.apache.derby.jdbc.ClientDriver</property>
-    <property name="hibernate.connection.url">jdbc:derby://localhost:1527/sample</property>
-    <property name="hibernate.connection.username">app</property>
-    <property name="hibernate.connection.password">app</property>
+    <property name="hibernate.dialect">org.hibernate.dialect.MySQLDialect</property>
+    <property name="hibernate.connection.driver_class">com.mysql.jdbc.Driver</property>
+    <property name="hibernate.connection.url">jdbc:mysql://localhost:3306/seminario</property>
+    <property name="hibernate.connection.username">root</property>
+    <property name="hibernate.connection.password"/>
+    <property name="hibernate.current_session_context_class">org.hibernate.context.ThreadLocalSessionContext</property>
+    <mapping resource="Modelo/Operario.hbm.xml"/>
+    <mapping resource="Modelo/Auditoriaordenrep.hbm.xml"/>
+    <mapping resource="Modelo/Auditoriapresupuesto.hbm.xml"/>
+    <mapping resource="Modelo/Ordenreparacion.hbm.xml"/>
+    <mapping resource="Modelo/Cliente.hbm.xml"/>
+    <mapping resource="Modelo/Persona.hbm.xml"/>
+    <mapping resource="Modelo/Ordenrecepcion.hbm.xml"/>
+    <mapping resource="Modelo/Provrepuesto.hbm.xml"/>
+    <mapping resource="Modelo/Repuesto.hbm.xml"/>
+    <mapping resource="Modelo/Presupuesto.hbm.xml"/>
+    <mapping resource="Modelo/Listarepuestos.hbm.xml"/>
+    <mapping resource="Modelo/Proveedor.hbm.xml"/>
+    <mapping resource="Modelo/Estadoreparacion.hbm.xml"/>
+    <mapping resource="Modelo/Tipocalidad.hbm.xml"/>
+    <mapping resource="Modelo/Tarea.hbm.xml"/>
   </session-factory>
 </hibernate-configuration>

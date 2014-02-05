@@ -1,0 +1,20 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE hibernate-reverse-engineering PUBLIC "-//Hibernate/Hibernate Reverse Engineering DTD 3.0//EN" "http://hibernate.sourceforge.net/hibernate-reverse-engineering-3.0.dtd">
+<hibernate-reverse-engineering>
+  <schema-selection match-catalog="seminario"/>
+  <table-filter match-name="ordenrecepcion"/>
+  <table-filter match-name="listarepuestos"/>
+  <table-filter match-name="cliente"/>
+  <table-filter match-name="tipocalidad"/>
+  <table-filter match-name="estadoreparacion"/>
+  <table-filter match-name="tarea"/>
+  <table-filter match-name="operario"/>
+  <table-filter match-name="persona"/>
+  <table-filter match-name="ordenreparacion"/>
+  <table-filter match-name="auditoriaordenrep"/>
+  <table-filter match-name="auditoriapresupuesto"/>
+  <table-filter match-name="provrepuesto"/>
+  <table-filter match-name="proveedor"/>
+  <table-filter match-name="repuesto"/>
+  <table-filter match-name="presupuesto"/>
+</hibernate-reverse-engineering>

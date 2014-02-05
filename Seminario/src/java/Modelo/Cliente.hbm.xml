@@ -1,0 +1,25 @@
+<?xml version="1.0"?>
+<!DOCTYPE hibernate-mapping PUBLIC "-//Hibernate/Hibernate Mapping DTD 3.0//EN"
+"http://hibernate.sourceforge.net/hibernate-mapping-3.0.dtd">
+<!-- Generated 05/02/2014 14:26:05 by Hibernate Tools 3.2.1.GA -->
+<hibernate-mapping>
+    <joined-subclass name="Modelo.Cliente" table="cliente" catalog="seminario" extends="Modelo.Persona">
+        <id name="idcliente" type="java.lang.Integer">
+            <column name="idcliente" />
+            <generator class="identity" />
+        </id>
+        <key column="idpersona"/>
+        <set name="ordenrecepcions" inverse="true">
+            <key>
+                <column name="cliente_id" not-null="true" />
+            </key>
+            <one-to-many class="Modelo.Ordenrecepcion" />
+        </set>
+        <set name="ordenreparacions" inverse="true">
+            <key>
+                <column name="cliente_id" not-null="true" />
+            </key>
+            <one-to-many class="Modelo.Ordenreparacion" />
+        </set>
+    </joined-subclass>
+</hibernate-mapping>

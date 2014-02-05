@@ -1,0 +1,21 @@
+<?xml version="1.0"?>
+<!DOCTYPE hibernate-mapping PUBLIC "-//Hibernate/Hibernate Mapping DTD 3.0//EN"
+"http://hibernate.sourceforge.net/hibernate-mapping-3.0.dtd">
+<!-- Generated 05/02/2014 14:26:05 by Hibernate Tools 3.2.1.GA -->
+<hibernate-mapping>
+    <class name="Modelo.Estadoreparacion" table="estadoreparacion" catalog="seminario">
+        <id name="idestado" type="java.lang.Integer">
+            <column name="idestado" />
+            <generator class="identity" />
+        </id>
+        <property name="estado" type="string">
+            <column name="estado" length="65535" not-null="true" />
+        </property>
+        <set name="ordenreparacions" inverse="true">
+            <key>
+                <column name="estado_id" not-null="true" />
+            </key>
+            <one-to-many class="Modelo.Ordenreparacion" />
+        </set>
+    </class>
+</hibernate-mapping>

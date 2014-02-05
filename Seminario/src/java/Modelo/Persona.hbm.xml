@@ -1,0 +1,42 @@
+<?xml version="1.0"?>
+<!DOCTYPE hibernate-mapping PUBLIC "-//Hibernate/Hibernate Mapping DTD 3.0//EN"
+"http://hibernate.sourceforge.net/hibernate-mapping-3.0.dtd">
+<!-- Generated 05/02/2014 14:26:05 by Hibernate Tools 3.2.1.GA -->
+<hibernate-mapping>
+    <class name="Modelo.Persona" table="persona" catalog="seminario">
+        <id name="idpersona" type="java.lang.Integer">
+            <column name="idpersona" />
+            <generator class="identity" />
+        </id>
+        <property name="dni" type="int">
+            <column name="dni" not-null="true" />
+        </property>
+        <property name="nombre" type="string">
+            <column name="nombre" length="65535" not-null="true" />
+        </property>
+        <property name="apellido" type="string">
+            <column name="apellido" length="65535" not-null="true" />
+        </property>
+        <property name="fechaNac" type="date">
+            <column name="fecha_nac" length="10" />
+        </property>
+        <property name="telFijo" type="string">
+            <column name="tel_fijo" length="65535" />
+        </property>
+        <property name="telMovil" type="string">
+            <column name="tel_movil" length="65535" />
+        </property>
+        <property name="email" type="string">
+            <column name="email" length="65535" not-null="true" />
+        </property>
+        <property name="calle" type="string">
+            <column name="calle" length="65535" />
+        </property>
+        <property name="numeracion" type="string">
+            <column name="numeracion" length="65535" />
+        </property>
+        <property name="depto" type="string">
+            <column name="depto" length="65535" />
+        </property>
+    </class>
+</hibernate-mapping>

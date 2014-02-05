@@ -1,0 +1,36 @@
+<?xml version="1.0"?>
+<!DOCTYPE hibernate-mapping PUBLIC "-//Hibernate/Hibernate Mapping DTD 3.0//EN"
+"http://hibernate.sourceforge.net/hibernate-mapping-3.0.dtd">
+<!-- Generated 05/02/2014 14:26:05 by Hibernate Tools 3.2.1.GA -->
+<hibernate-mapping>
+    <class name="Modelo.Tarea" table="tarea" catalog="seminario">
+        <id name="idtarea" type="java.lang.Integer">
+            <column name="idtarea" />
+            <generator class="identity" />
+        </id>
+        <many-to-one name="ordenreparacion" class="Modelo.Ordenreparacion" fetch="select">
+            <column name="ordenrep_id" />
+        </many-to-one>
+        <many-to-one name="presupuesto" class="Modelo.Presupuesto" fetch="select">
+            <column name="presupuesto_id" not-null="true" />
+        </many-to-one>
+        <many-to-one name="operario" class="Modelo.Operario" fetch="select">
+            <column name="operario_id" />
+        </many-to-one>
+        <property name="detalle" type="string">
+            <column name="detalle" length="65535" not-null="true" />
+        </property>
+        <property name="precio" type="double">
+            <column name="precio" precision="22" scale="0" not-null="true" />
+        </property>
+        <property name="esobligatoria" type="boolean">
+            <column name="esobligatoria" not-null="true" />
+        </property>
+        <set name="listarepuestoses" inverse="true">
+            <key>
+                <column name="tarea_id" not-null="true" />
+            </key>
+            <one-to-many class="Modelo.Listarepuestos" />
+        </set>
+    </class>
+</hibernate-mapping>

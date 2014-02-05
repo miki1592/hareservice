@@ -1,0 +1,18 @@
+<?xml version="1.0"?>
+<!DOCTYPE hibernate-mapping PUBLIC "-//Hibernate/Hibernate Mapping DTD 3.0//EN"
+"http://hibernate.sourceforge.net/hibernate-mapping-3.0.dtd">
+<!-- Generated 05/02/2014 14:26:05 by Hibernate Tools 3.2.1.GA -->
+<hibernate-mapping>
+    <class name="Modelo.Listarepuestos" table="listarepuestos" catalog="seminario">
+        <id name="idlista" type="java.lang.Integer">
+            <column name="idlista" />
+            <generator class="identity" />
+        </id>
+        <many-to-one name="tarea" class="Modelo.Tarea" fetch="select">
+            <column name="tarea_id" not-null="true" />
+        </many-to-one>
+        <many-to-one name="provrepuesto" class="Modelo.Provrepuesto" fetch="select">
+            <column name="provrepuesto_id" not-null="true" />
+        </many-to-one>
+    </class>
+</hibernate-mapping>

@@ -1,0 +1,36 @@
+<?xml version="1.0"?>
+<!DOCTYPE hibernate-mapping PUBLIC "-//Hibernate/Hibernate Mapping DTD 3.0//EN"
+"http://hibernate.sourceforge.net/hibernate-mapping-3.0.dtd">
+<!-- Generated 05/02/2014 14:26:05 by Hibernate Tools 3.2.1.GA -->
+<hibernate-mapping>
+    <class name="Modelo.Provrepuesto" table="provrepuesto" catalog="seminario">
+        <id name="idprovrepuesto" type="java.lang.Integer">
+            <column name="idprovrepuesto" />
+            <generator class="identity" />
+        </id>
+        <many-to-one name="tipocalidad" class="Modelo.Tipocalidad" fetch="select">
+            <column name="tipocalidad_id" not-null="true" />
+        </many-to-one>
+        <many-to-one name="repuesto" class="Modelo.Repuesto" fetch="select">
+            <column name="repuesto_id" not-null="true" />
+        </many-to-one>
+        <many-to-one name="proveedor" class="Modelo.Proveedor" fetch="select">
+            <column name="proveedor_id" not-null="true" />
+        </many-to-one>
+        <property name="codigoproveedor" type="string">
+            <column name="codigoproveedor" length="65535" not-null="true" />
+        </property>
+        <property name="precio" type="double">
+            <column name="precio" precision="22" scale="0" not-null="true" />
+        </property>
+        <property name="origen" type="string">
+            <column name="origen" length="65535" not-null="true" />
+        </property>
+        <set name="listarepuestoses" inverse="true">
+            <key>
+                <column name="provrepuesto_id" not-null="true" />
+            </key>
+            <one-to-many class="Modelo.Listarepuestos" />
+        </set>
+    </class>
+</hibernate-mapping>
