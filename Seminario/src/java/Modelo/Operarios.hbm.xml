@@ -1,0 +1,33 @@
+<?xml version="1.0"?>
+<!DOCTYPE hibernate-mapping PUBLIC "-//Hibernate/Hibernate Mapping DTD 3.0//EN"
+"http://hibernate.sourceforge.net/hibernate-mapping-3.0.dtd">
+<!-- Generated 31/03/2014 16:06:45 by Hibernate Tools 3.2.1.GA -->
+<hibernate-mapping>
+    <class name="Modelo.Operarios" table="operarios" catalog="seminario">
+        <id name="idoperario" type="java.lang.Integer">
+            <column name="idoperario" />
+            <generator class="identity" />
+        </id>
+        <many-to-one name="tiposoperario" class="Modelo.Tiposoperario" fetch="join" lazy="false">
+            <column name="tipooper_id" not-null="true" />
+        </many-to-one>
+        <property name="nombre" type="string">
+            <column name="nombre" length="65535" not-null="true" />
+        </property>
+        <property name="usuario" type="string">
+            <column name="usuario" length="65535" not-null="true" />
+        </property>
+        <property name="pass" type="string">
+            <column name="pass" length="65535" not-null="true" />
+        </property>
+        <property name="email" type="string">
+            <column name="email" length="65535" not-null="true" />
+        </property>
+        <set name="tareases" inverse="true" fetch="join">
+            <key>
+                <column name="operario_id" />
+            </key>
+            <one-to-many class="Modelo.Tareas" />
+        </set>
+    </class>
+</hibernate-mapping>

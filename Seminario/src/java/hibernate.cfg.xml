@@ -8,20 +8,19 @@
     <property name="hibernate.connection.username">root</property>
     <property name="hibernate.connection.password"/>
     <property name="hibernate.current_session_context_class">org.hibernate.context.ThreadLocalSessionContext</property>
-    <mapping resource="Modelo/Operario.hbm.xml"/>
-    <mapping resource="Modelo/Auditoriaordenrep.hbm.xml"/>
-    <mapping resource="Modelo/Auditoriapresupuesto.hbm.xml"/>
-    <mapping resource="Modelo/Ordenreparacion.hbm.xml"/>
-    <mapping resource="Modelo/Cliente.hbm.xml"/>
-    <mapping resource="Modelo/Persona.hbm.xml"/>
-    <mapping resource="Modelo/Ordenrecepcion.hbm.xml"/>
-    <mapping resource="Modelo/Provrepuesto.hbm.xml"/>
-    <mapping resource="Modelo/Repuesto.hbm.xml"/>
-    <mapping resource="Modelo/Presupuesto.hbm.xml"/>
-    <mapping resource="Modelo/Listarepuestos.hbm.xml"/>
-    <mapping resource="Modelo/Proveedor.hbm.xml"/>
-    <mapping resource="Modelo/Estadoreparacion.hbm.xml"/>
-    <mapping resource="Modelo/Tipocalidad.hbm.xml"/>
-    <mapping resource="Modelo/Tarea.hbm.xml"/>
+    <mapping resource="Modelo/Listasrepuestos.hbm.xml"/>
+    <mapping resource="Modelo/Tiposcalidad.hbm.xml"/>
+    <mapping resource="Modelo/Presupuestos.hbm.xml"/>
+    <mapping resource="Modelo/Ordenesrecepcion.hbm.xml"/>
+    <mapping resource="Modelo/Tiposrepuesto.hbm.xml"/>
+    <mapping resource="Modelo/Tiposoperario.hbm.xml"/>
+    <mapping resource="Modelo/Terceros.hbm.xml"/>
+    <mapping resource="Modelo/Repuestos.hbm.xml"/>
+    <mapping resource="Modelo/Ordenesreparacion.hbm.xml"/>
+    <mapping resource="Modelo/Operarios.hbm.xml"/>
+    <mapping resource="Modelo/Estadosreparacion.hbm.xml"/>
+    <mapping resource="Modelo/Auditoriaspresupuestos.hbm.xml"/>
+    <mapping resource="Modelo/Auditoriasordenrep.hbm.xml"/>
+    <mapping resource="Modelo/Tareas.hbm.xml"/>
   </session-factory>
 </hibernate-configuration>

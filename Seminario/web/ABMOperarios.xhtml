@@ -1,0 +1,53 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!--
+To change this template, choose Tools | Templates
+and open the template in the editor.
+-->
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:h="http://java.sun.com/jsf/html"
+      xmlns:ui="http://java.sun.com/jsf/facelets"
+      xmlns:f="http://java.sun.com/jsf/core">
+    <h:head>
+        <title>Gestion Operarios</title>
+    </h:head>
+    <h:body>
+        <ui:composition template="MenuAdmin.xhtml">
+            <ui:define name="contenido" >
+                <center>
+                    <br/>
+                    <h:form rendered="#{user.logeado==true and user.oper_logeado.getTiposoperario().getIdtipooperario()== 2}">
+                        <h1>Listado de Operarios</h1>            
+                        <h:dataTable value="#{user.ListarOperarios()}" var="fila" border="1" bgcolor="cadetblue">
+                            <h:column>
+                                <f:facet name="header">
+                                    <h:outputText value="Nombre" />
+                                </f:facet>
+                                <h:outputText id="nom" value="#{fila.nombre}"/>
+                            </h:column>
+                            <h:column>
+                                <f:facet name="header">
+                                    <h:outputText value="Usuario" />
+                                </f:facet>
+                                <h:outputText id="usr" value="#{fila.usuario}" />
+                            </h:column>
+                            <h:column>
+                                <f:facet name="header">
+                                    <h:outputText value="Email" />
+                                </f:facet>
+                                <h:outputText id="ema" value="#{fila.email}" />
+                            </h:column>
+                            <h:column>
+                                <f:facet name="header">
+                                    <h:outputText value="Tipo Usuario" />
+                                </f:facet>
+                                <h:outputText id="tip" value="#{fila.getTiposoperario().getTipo()}"/>
+                            </h:column>
+                        </h:dataTable>
+                    </h:form>    
+                </center>
+            </ui:define>                                   
+        </ui:composition>
+    </h:body>
+</html>
+

@@ -1,0 +1,33 @@
+<?xml version="1.0"?>
+<!DOCTYPE hibernate-mapping PUBLIC "-//Hibernate/Hibernate Mapping DTD 3.0//EN"
+"http://hibernate.sourceforge.net/hibernate-mapping-3.0.dtd">
+<!-- Generated 31/03/2014 16:06:45 by Hibernate Tools 3.2.1.GA -->
+<hibernate-mapping>
+    <class name="Modelo.Presupuestos" table="presupuestos" catalog="seminario">
+        <id name="idpresupuesto" type="java.lang.Integer">
+            <column name="idpresupuesto" />
+            <generator class="identity" />
+        </id>
+        <many-to-one name="ordenesrecepcion" class="Modelo.Ordenesrecepcion" fetch="select">
+            <column name="ordenrecep_id" not-null="true" />
+        </many-to-one>
+        <property name="precioestimado" type="double">
+            <column name="precioestimado" precision="22" scale="0" not-null="true" />
+        </property>
+        <property name="esaceptado" type="boolean">
+            <column name="esaceptado" not-null="true" />
+        </property>
+        <set name="auditoriaspresupuestoses" inverse="true">
+            <key>
+                <column name="presupuesto_id" not-null="true" />
+            </key>
+            <one-to-many class="Modelo.Auditoriaspresupuestos" />
+        </set>
+        <set name="tareases" inverse="true">
+            <key>
+                <column name="presupuesto_id" not-null="true" />
+            </key>
+            <one-to-many class="Modelo.Tareas" />
+        </set>
+    </class>
+</hibernate-mapping>

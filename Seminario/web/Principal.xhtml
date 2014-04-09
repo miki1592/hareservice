@@ -1,0 +1,26 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!--
+To change this template, choose Tools | Templates
+and open the template in the editor.
+-->
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:h="http://java.sun.com/jsf/html"
+      xmlns:ui="http://java.sun.com/jsf/facelets"
+      xmlns:f="http://java.sun.com/jsf/core">
+    <h:head>
+        <title>Principal-Hare Service</title>
+    </h:head>
+    <h:body>
+        <ui:composition template="MenuAdmin.xhtml">
+            <ui:define name="contenido" >
+                <center>
+                    <br/><br/>
+                    <h:form rendered="#{user.logeado==true and user.oper_logeado.getTiposoperario().getIdtipooperario()== 2}">
+                    <h1>Bienvenido al "Sistema Hare Service"</h1>
+                </h:form>    
+                </center>
+            </ui:define>                                   
+        </ui:composition>   
+    </h:body>
+</html>

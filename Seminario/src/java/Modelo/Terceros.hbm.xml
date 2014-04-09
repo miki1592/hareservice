@@ -1,0 +1,69 @@
+<?xml version="1.0"?>
+<!DOCTYPE hibernate-mapping PUBLIC "-//Hibernate/Hibernate Mapping DTD 3.0//EN"
+"http://hibernate.sourceforge.net/hibernate-mapping-3.0.dtd">
+<!-- Generated 31/03/2014 16:06:45 by Hibernate Tools 3.2.1.GA -->
+<hibernate-mapping>
+    <class name="Modelo.Terceros" table="terceros" catalog="seminario">
+        <id name="idtercero" type="java.lang.Integer">
+            <column name="idtercero" />
+            <generator class="identity" />
+        </id>
+        <property name="nombre" type="string">
+            <column name="nombre" length="65535" />
+        </property>
+        <property name="apellido" type="string">
+            <column name="apellido" length="65535" />
+        </property>
+        <property name="razonsocial" type="string">
+            <column name="razonsocial" length="65535" />
+        </property>
+        <property name="cuit" type="string">
+            <column name="cuit" length="65535" />
+        </property>
+        <property name="dni" type="java.lang.Integer">
+            <column name="dni" />
+        </property>
+        <property name="email" type="string">
+            <column name="email" length="65535" />
+        </property>
+        <property name="telefono" type="string">
+            <column name="telefono" length="65535" />
+        </property>
+        <property name="telefonomovil" type="string">
+            <column name="telefonomovil" length="65535" />
+        </property>
+        <property name="calle" type="string">
+            <column name="calle" length="65535" />
+        </property>
+        <property name="altura" type="java.lang.Integer">
+            <column name="altura" />
+        </property>
+        <property name="dpto" type="string">
+            <column name="dpto" length="65535" />
+        </property>
+        <property name="esproveedor" type="java.lang.Boolean">
+            <column name="esproveedor" />
+        </property>
+        <property name="escliente" type="java.lang.Boolean">
+            <column name="escliente" />
+        </property>
+        <set name="ordenesrecepcions" inverse="true">
+            <key>
+                <column name="cliente_id" not-null="true" />
+            </key>
+            <one-to-many class="Modelo.Ordenesrecepcion" />
+        </set>
+        <set name="repuestoses" inverse="true">
+            <key>
+                <column name="proveedor_id" not-null="true" />
+            </key>
+            <one-to-many class="Modelo.Repuestos" />
+        </set>
+        <set name="ordenesreparacions" inverse="true">
+            <key>
+                <column name="cliente_id" not-null="true" />
+            </key>
+            <one-to-many class="Modelo.Ordenesreparacion" />
+        </set>
+    </class>
+</hibernate-mapping>

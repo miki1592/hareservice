@@ -1,0 +1,42 @@
+<?xml version="1.0"?>
+<!DOCTYPE hibernate-mapping PUBLIC "-//Hibernate/Hibernate Mapping DTD 3.0//EN"
+"http://hibernate.sourceforge.net/hibernate-mapping-3.0.dtd">
+<!-- Generated 31/03/2014 16:06:45 by Hibernate Tools 3.2.1.GA -->
+<hibernate-mapping>
+    <class name="Modelo.Ordenesreparacion" table="ordenesreparacion" catalog="seminario">
+        <id name="idordenreparacion" type="java.lang.Integer">
+            <column name="idordenreparacion" />
+            <generator class="identity" />
+        </id>
+        <many-to-one name="terceros" class="Modelo.Terceros" fetch="select">
+            <column name="cliente_id" not-null="true" />
+        </many-to-one>
+        <many-to-one name="estadosreparacion" class="Modelo.Estadosreparacion" fetch="select">
+            <column name="estado_id" not-null="true" />
+        </many-to-one>
+        <property name="fechainicio" type="date">
+            <column name="fechainicio" length="10" />
+        </property>
+        <property name="fechaestimada" type="date">
+            <column name="fechaestimada" length="10" />
+        </property>
+        <property name="fechafinalizacion" type="date">
+            <column name="fechafinalizacion" length="10" />
+        </property>
+        <property name="precio" type="double">
+            <column name="precio" precision="22" scale="0" not-null="true" />
+        </property>
+        <set name="tareases" inverse="true">
+            <key>
+                <column name="ordenrep_id" />
+            </key>
+            <one-to-many class="Modelo.Tareas" />
+        </set>
+        <set name="auditoriasordenreps" inverse="true">
+            <key>
+                <column name="ordenrep_id" not-null="true" unique="true" />
+            </key>
+            <one-to-many class="Modelo.Auditoriasordenrep" />
+        </set>
+    </class>
+</hibernate-mapping>

@@ -2,19 +2,18 @@
 <!DOCTYPE hibernate-reverse-engineering PUBLIC "-//Hibernate/Hibernate Reverse Engineering DTD 3.0//EN" "http://hibernate.sourceforge.net/hibernate-reverse-engineering-3.0.dtd">
 <hibernate-reverse-engineering>
   <schema-selection match-catalog="seminario"/>
-  <table-filter match-name="ordenrecepcion"/>
-  <table-filter match-name="listarepuestos"/>
-  <table-filter match-name="cliente"/>
-  <table-filter match-name="tipocalidad"/>
-  <table-filter match-name="estadoreparacion"/>
-  <table-filter match-name="tarea"/>
-  <table-filter match-name="operario"/>
-  <table-filter match-name="persona"/>
-  <table-filter match-name="ordenreparacion"/>
-  <table-filter match-name="auditoriaordenrep"/>
-  <table-filter match-name="auditoriapresupuesto"/>
-  <table-filter match-name="provrepuesto"/>
-  <table-filter match-name="proveedor"/>
-  <table-filter match-name="repuesto"/>
-  <table-filter match-name="presupuesto"/>
+  <table-filter match-name="auditoriaspresupuestos"/>
+  <table-filter match-name="presupuestos"/>
+  <table-filter match-name="listasrepuestos"/>
+  <table-filter match-name="tiposcalidad"/>
+  <table-filter match-name="operarios"/>
+  <table-filter match-name="estadosreparacion"/>
+  <table-filter match-name="tareas"/>
+  <table-filter match-name="ordenesrecepcion"/>
+  <table-filter match-name="ordenesreparacion"/>
+  <table-filter match-name="auditoriasordenrep"/>
+  <table-filter match-name="repuestos"/>
+  <table-filter match-name="tiposrepuesto"/>
+  <table-filter match-name="tiposoperario"/>
+  <table-filter match-name="terceros"/>
 </hibernate-reverse-engineering>
