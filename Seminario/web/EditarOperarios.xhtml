@@ -1,0 +1,61 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!--
+To change this template, choose Tools | Templates
+and open the template in the editor.
+-->
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:h="http://java.sun.com/jsf/html"
+      xmlns:ui="http://java.sun.com/jsf/facelets"
+      xmlns:f="http://java.sun.com/jsf/core"
+      xmlns:p="http://primefaces.org/ui">
+    <h:head>
+        <title>Editar Operarios</title>
+    </h:head>
+    <h:body>
+        <ui:composition template="MenuAdmin.xhtml">
+            <ui:define name="contenido" >
+                <center>
+                    <br/><br/>
+                    <h:form rendered="#{user.logeado==true and user.oper_logeado.getTiposoperario().getIdtipooperario()== 2}">
+                        <h2>Edicion de Operarios</h2>
+                        <table id="MiTabla2" border="3">
+                            <tr>
+                                <td>Ingrese Nombre:</td>
+                                <td>
+                                    <p:inputText value="#{user.editar.nombre}" id="nombre" size="10" required="true" requiredMessage="Ingrese nombre"/>
+                                </td>
+                            </tr>
+                            <tr>
+                                <td>Ingrese Usuario:</td>
+                                <td>
+                                    <p:inputText value="#{user.editar.usuario}" id="usu" size="10" required="true" requiredMessage="Ingrese usuario"/>
+                                </td>
+                            </tr>
+                            <tr>
+                                <td>Ingrese Contraseña:</td>
+                                <td>
+                                    <p:password value="#{user.editar.pass}" id="pas" size="10" required="true" requiredMessage="Ingrese contraseña"/>
+                                </td>
+                            </tr>
+                            <tr>
+                                <td>
+                                    Seleccione Tipo de Operario:
+                                </td>
+                                <td> 
+                                    <p:selectOneMenu id="tipooper" value="#{user.agregar.tiposoperario.idtipooperario}" required="true" requiredMessage="Seleccione tipo de operario">   
+                                        <f:selectItem itemLabel="Seleccione Tipo Operario" itemValue=""/>
+                                        <f:selectItems value="#{user.lista}" var="tips" itemLabel="#{tips.tipo}" itemValue="#{tips.idtipooperario}"/>  
+                                    </p:selectOneMenu>
+                                    <p:message for="tipooper"/>
+                                </td>
+                            </tr>
+                        </table>
+                        <br/><br/>
+                        <p><h:commandButton value="Modificar" action="#{user.actualizarOperario()}"/></p>
+                    </h:form>    
+                </center>
+            </ui:define>                                   
+        </ui:composition>
+    </h:body>
+</html>

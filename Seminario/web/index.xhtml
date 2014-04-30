@@ -2,7 +2,8 @@
 <!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
 <html xmlns="http://www.w3.org/1999/xhtml"
       xmlns:h="http://java.sun.com/jsf/html"
-      xmlns:ui="http://java.sun.com/jsf/facelets">
+      xmlns:ui="http://java.sun.com/jsf/facelets"
+      xmlns:p="http://primefaces.org/ui">
     <h:head>
         <title>Login</title>
         <style>
@@ -46,7 +47,7 @@
                         <label>Usuario: </label>
                     </td>
                     <td>
-                        <h:inputText value="#{user.oper.usuario}"/>
+                        <p:inputText value="#{user.oper.usuario}" required="true" requiredMessage="Ingrese usuario"/>
                     </td>
                 </tr>
                 <tr>
@@ -54,7 +55,7 @@
                         <label>Contraseña: </label>
                     </td>
                     <td>
-                        <h:inputText value="#{user.oper.pass}"/>
+                        <p:password value="#{user.oper.pass}" required="true" requiredMessage="Ingrese contraseña"/>
                     </td>
                 </tr>
             </table>

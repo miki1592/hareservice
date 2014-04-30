@@ -7,7 +7,8 @@ and open the template in the editor.
 <html xmlns="http://www.w3.org/1999/xhtml"
       xmlns:h="http://java.sun.com/jsf/html"
       xmlns:ui="http://java.sun.com/jsf/facelets"
-      xmlns:f="http://java.sun.com/jsf/core">
+      xmlns:f="http://java.sun.com/jsf/core"
+      xmlns:p="http://primefaces.org/ui">
     <h:head>
         <title>Gestion Operarios</title>
     </h:head>
@@ -16,7 +17,10 @@ and open the template in the editor.
             <ui:define name="contenido" >
                 <center>
                     <br/>
+                    <h:outputText value="#{user.LeerMensaje()}" rendered="#{user.hayMensaje}" style="color: blueviolet; background-color: burlywood; font-family: sans-serif; font-size: large"/>
+                    <br/>
                     <h:form rendered="#{user.logeado==true and user.oper_logeado.getTiposoperario().getIdtipooperario()== 2}">
+                        <br/>
                         <h1>Listado de Operarios</h1>            
                         <h:dataTable value="#{user.ListarOperarios()}" var="fila" border="1" bgcolor="cadetblue">
                             <h:column>
@@ -43,7 +47,72 @@ and open the template in the editor.
                                 </f:facet>
                                 <h:outputText id="tip" value="#{fila.getTiposoperario().getTipo()}"/>
                             </h:column>
+                            <h:column>
+                                <f:facet name="header" >
+                                    <h:outputText value="Accion"/>
+                                </f:facet>
+                                <h:commandLink value="Eliminar" action="#{user.EliminarOperario(fila)}">
+                                </h:commandLink>
+                            </h:column> 
+                            <h:column>
+                                <f:facet name="header">
+                                    <h:outputText value="Accion"/>
+                                </f:facet>
+                                <h:commandLink value="Modificar" action="#{user.ProcesarEditar(fila)}">
+                                </h:commandLink>
+                            </h:column>
                         </h:dataTable>
+                        <br/><br/><br/>
+                        <h2>Alta de Operarios</h2>                       
+                        <table id="MiTabla2" border="3">
+                            <tr>
+                                <td>Ingrese Nombre:</td>
+                                <td>
+                                    <p:inputText id="nombre" value="#{user.agregar.nombre}" required="true" requiredMessage="Ingrese Nombre"/>
+                                    <p:message for="nombre" />
+                                </td>
+                            </tr>
+                            <tr>
+                                <td>Ingrese Usuario:</td>
+                                <td>
+                                    <p:inputText id="user" value="#{user.agregar.usuario}" required="true" requiredMessage="Ingrese Usuario"/>
+                                    <p:message for="user" />
+                                </td>
+                            </tr>
+                            <tr>
+                                <td>Ingrese Contraseña:</td>
+                                <td>
+                                    <p:password id="pass" value="#{user.agregar.pass}" required="true" requiredMessage="Ingrese Contraseña"/>
+                                    <p:message for="pass" />
+                                </td>
+                            </tr>
+                            <tr>
+                                <td>Ingrese Email:</td>
+                                <td>
+                                    <p:inputText id="email" value="#{user.agregar.email}" required="true" requiredMessage="Ingrese su direecion de email" 
+                                                 validatorMessage="Formato de email incorrecto">
+                                    <f:validateRegex pattern="^[_A-Za-z0-9-\+]+(\.[_A-Za-z0-9-]+)*@[A-Za-z0-9-]+(\.[A-Za-z0-9]+)*(\.[A-Za-z]{2,})$" />
+                                    </p:inputText>
+                                    <p:watermark for="email" value="Email *" />
+                                    <p:message for="email" />
+                                </td>
+                            </tr>
+                            <tr>
+                                <td>
+                                    Seleccione Tipo de Operario:
+                                </td>
+                                <td> 
+                                    <p:selectOneMenu id="tipooper" value="#{user.agregar.tiposoperario.idtipooperario}" required="true" requiredMessage="Seleccione tipo de operario">   
+                                        <f:selectItem itemLabel="Seleccione Tipo Operario" itemValue=""/>
+                                        <f:selectItems value="#{user.lista}" var="tips" itemLabel="#{tips.tipo}" itemValue="#{tips.idtipooperario}"/>  
+                                    </p:selectOneMenu>
+                                    <p:message for="tipooper"/>
+                                </td>
+                            </tr>
+                        </table>
+                        <p:keyboard id="tecladp"/>
+                        <br/><br/>
+                        <p><h:commandButton value="Agregar" action="#{user.AgregarOperario()}"/></p>
                     </h:form>    
                 </center>
             </ui:define>                                   

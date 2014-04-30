@@ -20,6 +20,7 @@ public class Operarios  implements java.io.Serializable {
      private Set<Tareas> tareases = new HashSet<Tareas>(0);
 
     public Operarios() {
+        tiposoperario=new Tiposoperario();
     }
 
 	
