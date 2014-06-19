@@ -7,20 +7,78 @@ and open the template in the editor.
 <html xmlns="http://www.w3.org/1999/xhtml"
       xmlns:h="http://java.sun.com/jsf/html"
       xmlns:ui="http://java.sun.com/jsf/facelets"
-      xmlns:f="http://java.sun.com/jsf/core">
+      xmlns:f="http://java.sun.com/jsf/core"
+      xmlns:p="http://primefaces.org/ui">
     <h:head>
-        <title>Principal-Hare Service</title>
+        <title>Hare Service</title>
+        <style>
+            body 
+            {
+                background-color: grey;
+            }
+            h1
+            {
+                text-align: center;
+                font-size: x-large;
+                background-color: lightsalmon;
+            }
+            h2
+            {
+                text-align: center;
+                font-size: x-large;
+                background-color: coral;
+            }
+            #MiTabla
+            {
+                background-color: cadetblue;
+                text-align:center;
+                font-size:large;
+                border: black;
+            }
+            #MiTabla2
+            {
+                background-color: lightcoral;
+                text-align:center;
+                font-size:large;
+                border: black;
+            }
+        </style>
     </h:head>
     <h:body>
-        <ui:composition template="MenuAdmin.xhtml">
-            <ui:define name="contenido" >
-                <center>
-                    <br/><br/>
-                    <h:form rendered="#{user.logeado==true and user.oper_logeado.getTiposoperario().getIdtipooperario()== 2}">
-                    <h1>Bienvenido al "Sistema Hare Service"</h1>
-                </h:form>    
-                </center>
-            </ui:define>                                   
-        </ui:composition>   
+        <h:form rendered="#{user.logeado == false}">
+            <h1 align="center"> Usted no esta logueado... </h1>
+            <br/>
+            <center>
+                <h:commandLink value="Logueo" action="#{user.Logout()}" style="color: blue; font-family: cursive; font-size: x-large "/>
+            </center>
+        </h:form>        
+        <h:form rendered="#{user.oper_logeado.getTiposoperario().getIdtipooperario()!= 2}">
+            <h1 align="center"> Usted no esta logueado como administrador... </h1>  
+            <br/>
+            <center>
+            <h:commandLink value="Logueo" action="#{user.Logout()}" style="color: blue; font-family: cursive; font-size: x-large "/>
+            </center>
+        </h:form>
+        <h:form rendered="#{user.logeado==true and user.oper_logeado.getTiposoperario().getIdtipooperario()== 2}">
+            <p:growl id="messages"/>
+            <p:menubar style="background-color: bisque; color: blue">  
+                <p:menuitem value="Inicio" action="principal" icon="ui-icon-home" ajax="false"/>
+                <p:submenu label="Gestion Operarios">
+                    <p:menuitem value="Listado de Operarios" icon="ui-icon-document" action="abmoperarios" ajax="false"/>
+                    <p:separator />
+                    <p:menuitem value="Nuevo" icon="ui-icon-disk" action="agregaroperarios" ajax="false"/>
+                </p:submenu>
+                <p:submenu label="Gestion Clientes">
+                    <p:menuitem value="Listado de Clientes" icon="ui-icon-document"/>
+                    <p:separator />
+                    <p:menuitem value="Nuevo" icon="ui-icon-disk"/>
+                </p:submenu>
+                <p:menuitem value="Logout" icon="ui-icon-arrowthickstop-1-e" action="#{user.Logout()}" ajax="false"/>
+            </p:menubar>
+            <center>
+                <br/><br/>
+                <h1>Bienvenido #{user.oper_logeado.nombre} al Sistema Hare Service</h1>
+            </center>
+        </h:form>
     </h:body>
 </html>

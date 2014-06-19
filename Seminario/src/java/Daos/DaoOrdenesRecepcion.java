@@ -3,17 +3,20 @@
  * and open the template in the editor.
  */
 package Daos;
+
+import Modelo.Ordenesrecepcion;
 import java.util.ArrayList;
+import java.util.Date;
 import org.hibernate.HibernateException;
+import org.hibernate.Query;
 import org.hibernate.Session;
 import org.hibernate.Transaction;
-import Modelo.Terceros;
-import org.hibernate.Query;
+
 /**
  *
  * @author romero
  */
-public class DaoClientes implements IDAO<Terceros>
+public class DaoOrdenesRecepcion implements IDAO<Ordenesrecepcion>
 {
     private Session session;
     private Transaction tx;
@@ -28,18 +31,18 @@ public class DaoClientes implements IDAO<Terceros>
     { 
         tx.rollback(); 
         throw new HibernateException("Ocurrió un error en la capa de acceso a datos", he); 
-    } 
+    }
     
     @Override
-    public synchronized int Agregar(Terceros entidad) 
+    public synchronized int Agregar(Ordenesrecepcion entidad) 
     {
-        int id = 0;
+        int id = 0;  
 
         try 
-        {
-            iniciaOperacion();
-            id = (Integer) session.save(entidad);
-            tx.commit();
+        { 
+            iniciaOperacion(); 
+            id = (Integer)session.save(entidad); 
+            tx.commit(); 
         }
         catch(HibernateException ex) 
         { 
@@ -56,14 +59,14 @@ public class DaoClientes implements IDAO<Terceros>
     }
 
     @Override
-    public synchronized void Actualizar(Terceros entidad) 
+    public synchronized void Actualizar(Ordenesrecepcion entidad)
     {
         try 
         { 
             iniciaOperacion(); 
             session.update(entidad); 
             tx.commit(); 
-        } 
+        }
         catch (HibernateException ex) 
         { 
             System.out.println("Ha ocurrido una excepcion: " + ex.getMessage());
@@ -72,18 +75,18 @@ public class DaoClientes implements IDAO<Terceros>
         finally 
         { 
             session.close(); 
-        }  
+        }
     }
 
     @Override
-    public synchronized void Eliminar(Terceros entidad) 
+    public synchronized void Eliminar(Ordenesrecepcion entidad)
     {
         try 
         { 
             iniciaOperacion(); 
             session.delete(entidad); 
             tx.commit(); 
-        } 
+        }
         catch (HibernateException ex) 
         { 
             System.out.println("Ha ocurrido una excepcion: " + ex.getMessage());
@@ -92,113 +95,37 @@ public class DaoClientes implements IDAO<Terceros>
         finally 
         { 
             session.close(); 
-        }  
+        }
     }
 
     @Override
-    public synchronized Terceros Get(String atributo) 
-    {
-        Terceros cliente=null;
-        
-        try 
-        { 
-            iniciaOperacion(); 
-
-            Query query=session.createQuery("FROM Terceros c WHERE c.email=:mail AND c.escliente=1");
-
-            query.setString("mail",atributo);
-
-            cliente=(Terceros)query.uniqueResult();
-        }
-        catch(HibernateException ex)
-        {
-            System.out.println("Ha ocurrido una excepcion: " + ex.getMessage());
-            
-            manejaExcepcion(ex);
-            
-        }
-        finally 
-        { 
-            session.close(); 
-        }  
-
-        return cliente;
+    public Ordenesrecepcion Get(String atributo) {
+        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
     }
-    
-    public synchronized Terceros GetByName(String nom,String ape)
-    {
-        Terceros cliente=null;
-        
-        try 
-        { 
-            iniciaOperacion(); 
 
-            Query query=session.createQuery("FROM Terceros c WHERE c.nombre=:nom AND c.apellido=:ape AND c.escliente=1");
-
-            query.setString("nom",nom);
-            
-            query.setString("ape",ape);
-
-            cliente=(Terceros)query.uniqueResult();
-        }
-        catch(HibernateException ex)
-        {
-            System.out.println("Ha ocurrido una excepcion: " + ex.getMessage());
-            
-            manejaExcepcion(ex);
-            
-        }
-        finally 
-        { 
-            session.close(); 
-        }  
-
-        return cliente;
-    }
-    
-    public synchronized Terceros GetByDNI(int dni)
-    {
-        Terceros cliente=null;
-        
-        try 
-        { 
-            iniciaOperacion(); 
-
-            Query query=session.createQuery("FROM Terceros c WHERE c.dni=:doc AND c.escliente=1");
-
-            query.setInteger("doc", dni);
-
-            cliente=(Terceros)query.uniqueResult();
-        }
-        catch(HibernateException ex)
-        {
-            System.out.println("Ha ocurrido una excepcion: " + ex.getMessage());
-            
-            manejaExcepcion(ex);
-            
-        }
-        finally 
-        { 
-            session.close(); 
-        }  
-
-        return cliente;
-    }
-    
     @Override
-    public synchronized Terceros Get(int Atributo)
+    public Ordenesrecepcion Get(int Atributo) {
+        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
+    }
+    
+    public String dateToMySQLDate(Date fecha)
     {
-        Terceros cliente=null;
+        java.text.SimpleDateFormat sdf = new java.text.SimpleDateFormat("yyyy-MM-dd HH:mm:ss");
+        
+        return sdf.format(fecha);
+    }
+    
+    public synchronized Ordenesrecepcion GetByDate(Date busqueda)
+    {
+        Ordenesrecepcion orden=null;
         
         try 
         { 
             iniciaOperacion(); 
 
-            Query query=session.createQuery("FROM Terceros c WHERE c.idtercero=:id");
+            Query query=session.createQuery("FROM Ordenesrecepcion o WHERE o.fecha=" + dateToMySQLDate(busqueda));
 
-            query.setParameter("id",Atributo);
-
-            cliente=(Terceros)query.uniqueResult();
+            orden=(Ordenesrecepcion)query.uniqueResult();
         }
         catch(HibernateException ex)
         {
@@ -212,9 +139,9 @@ public class DaoClientes implements IDAO<Terceros>
             session.close(); 
         }  
 
-        return cliente;
+        return orden;
     }
-
+    
     @Override
     public synchronized ArrayList Listar() 
     {
@@ -224,7 +151,7 @@ public class DaoClientes implements IDAO<Terceros>
         { 
             iniciaOperacion(); 
 
-            Query query=session.createQuery("FROM Terceros c WHERE c.escliente=1");
+            Query query=session.createQuery("FROM Ordenesrecepcion o");
 
             Lista=(ArrayList)query.list();
         }
@@ -240,7 +167,36 @@ public class DaoClientes implements IDAO<Terceros>
             session.close(); 
         }  
 
-        return Lista; 
+        return Lista;
+    }
+    
+    public synchronized ArrayList ListarByCliente(int idcliente) 
+    {
+        ArrayList Lista=new ArrayList();  
+        
+        try 
+        { 
+            iniciaOperacion(); 
+
+            Query query=session.createQuery("FROM Ordenesrecepcion o WHERE o.cliente_id=:id");
+            
+            query.setParameter("id",idcliente);
+
+            Lista=(ArrayList)query.list();
+        }
+        catch(HibernateException ex)
+        {
+            System.out.println("Ha ocurrido una excepcion: " + ex.getMessage());
+            
+            manejaExcepcion(ex);
+            
+        }
+        finally 
+        { 
+            session.close(); 
+        }  
+
+        return Lista;
     }
     
 }

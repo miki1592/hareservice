@@ -32,27 +32,72 @@ public class DaoTiposOperarios implements IDAO<Tiposoperario>
     }  
     
     @Override
-    public int Agregar(Tiposoperario entidad) {
-        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
+    public synchronized int Agregar(Tiposoperario entidad) 
+    {    
+        int id = 0;  
+
+        try 
+        { 
+            iniciaOperacion(); 
+            id = (Integer)session.save(entidad); 
+            tx.commit(); 
+        }
+        catch(HibernateException ex) 
+        { 
+            System.out.println("Ha ocurrido una excepcion: " + ex.getMessage());
+            
+            manejaExcepcion(ex); 
+        }
+        finally 
+        { 
+            session.close(); 
+        }  
+        
+        return id;
     }
 
     @Override
-    public void Actualizar(Tiposoperario entidad) {
-        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
+    public synchronized void Actualizar(Tiposoperario entidad) 
+    {
+        try 
+        { 
+            iniciaOperacion(); 
+            session.update(entidad); 
+            tx.commit(); 
+        }
+        catch (HibernateException ex) 
+        { 
+            System.out.println("Ha ocurrido una excepcion: " + ex.getMessage());
+            manejaExcepcion(ex); 
+        }
+        finally 
+        { 
+            session.close(); 
+        }
     }
 
     @Override
-    public void Eliminar(Tiposoperario entidad) {
-        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
+    public synchronized void Eliminar(Tiposoperario entidad)
+    {
+        try 
+        { 
+            iniciaOperacion(); 
+            session.delete(entidad); 
+            tx.commit(); 
+        }
+        catch (HibernateException ex) 
+        { 
+            System.out.println("Ha ocurrido una excepcion: " + ex.getMessage());
+            manejaExcepcion(ex); 
+        }
+        finally 
+        { 
+            session.close(); 
+        }
     }
 
     @Override
-    public Tiposoperario Get(String atributo) {
-        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
-    }
-
-    @Override
-    public Tiposoperario Get(int Atributo) 
+    public synchronized Tiposoperario Get(String atributo) 
     {
         Tiposoperario tipo=null;
         
@@ -60,7 +105,37 @@ public class DaoTiposOperarios implements IDAO<Tiposoperario>
         { 
             iniciaOperacion(); 
 
-            Query query=session.createQuery("FROM Tiposoperario tipo WHERE tipo.idtipooperario=:id");
+            Query query=session.createQuery("FROM Tiposoperario tipos WHERE tipos.tipo=:tip");
+
+            query.setParameter("tip",atributo);
+
+            tipo=(Tiposoperario)query.uniqueResult();
+        }
+        catch(HibernateException ex)
+        {
+            System.out.println("Ha ocurrido una excepcion: " + ex.getMessage());
+            
+            manejaExcepcion(ex);
+            
+        }
+        finally 
+        { 
+            session.close(); 
+        }  
+
+        return tipo;
+    }
+
+    @Override
+    public synchronized Tiposoperario Get(int Atributo) 
+    {
+        Tiposoperario tipo=null;
+        
+        try 
+        { 
+            iniciaOperacion(); 
+
+            Query query=session.createQuery("FROM Tiposoperario tipos WHERE tipos.idtipooperario=:id");
 
             query.setParameter("id",Atributo);
 
@@ -82,7 +157,7 @@ public class DaoTiposOperarios implements IDAO<Tiposoperario>
     }
 
     @Override
-    public ArrayList Listar() 
+    public synchronized ArrayList Listar() 
     {
         ArrayList Lista=new ArrayList();  
         

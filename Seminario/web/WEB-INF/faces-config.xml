@@ -27,12 +27,12 @@
             <to-view-id>ABMOperarios.xhtml</to-view-id>
         </navigation-case>
         <navigation-case>
-            <from-outcome>EditarOperarios</from-outcome>
-            <to-view-id>EditarOperarios.xhtml</to-view-id>
+            <from-outcome>agregaroperarios</from-outcome>
+            <to-view-id>AgregarOperarios.xhtml</to-view-id>
         </navigation-case>
         <navigation-case>
-            <from-outcome>ErrorOperarios</from-outcome>
-            <to-view-id>ErrorOperarios.xhtml</to-view-id>
+            <from-outcome>editaroperarios</from-outcome>
+            <to-view-id>EditarOperarios.xhtml</to-view-id>
         </navigation-case>
     </navigation-rule>
     <managed-bean>

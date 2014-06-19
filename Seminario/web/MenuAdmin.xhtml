@@ -7,7 +7,8 @@ and open the template in the editor.
 <html xmlns="http://www.w3.org/1999/xhtml"
       xmlns:h="http://java.sun.com/jsf/html"
       xmlns:ui="http://java.sun.com/jsf/facelets"
-      xmlns:f="http://java.sun.com/jsf/core">
+      xmlns:f="http://java.sun.com/jsf/core"
+      xmlns:p="http://primefaces.org/ui">
     <h:head>
         <title>Hare Service</title>
         <style>
@@ -59,24 +60,31 @@ and open the template in the editor.
             </center>
         </h:form>
         <h:form rendered="#{user.logeado == true and user.oper_logeado.getTiposoperario().getIdtipooperario()== 2}">
-            <h:dataTable  width="100%" bgcolor="lightcoral">
-                <h:column>
-                    <f:facet name="header">                      
-                        <h:commandLink value="Principal" action="principal"/>
-                    </f:facet>
-                </h:column>          
-                <h:column>
-                    <f:facet name="header">
-                        <h:commandLink value="Logout" action="#{user.Logout()}"/>
-                    </f:facet>
-                </h:column>
-                <h:column>
-                    <f:facet name="header">
-                        <h:commandLink value="Gestion Operarios" action="abmoperarios"/>
-                    </f:facet>
-                </h:column>
-            </h:dataTable>
+            <p:growl id="messages"/>
+            <p:menubar>  
+                <p:menuitem value="Inicio" action="principal" icon="ui-icon-home" />
+                <p:submenu label="Gestion Operarios">
+                    <p:menuitem value="Listado de Operarios" icon="ui-icon-document" action="abmoperarios"/>
+                    <p:separator />
+                    <p:menuitem value="Nuevo" icon="ui-icon-disk" action="agregaroperarios"/>
+                    <p:separator />
+                    <p:menuitem value="Editar" icon="ui-icon-arrowrefresh-1-w"/>
+                    <p:separator />
+                    <p:menuitem value="Eliminar" icon="ui-icon-close"/>
+                </p:submenu>
+                <p:submenu label="Gestion Clientes">
+                    <p:menuitem value="Listado de Clientes" icon="ui-icon-document"/>
+                    <p:separator />
+                    <p:menuitem value="Nuevo" icon="ui-icon-disk"/>
+                    <p:separator />
+                    <p:menuitem value="Editar" icon="ui-icon-arrowrefresh-1-w"/>
+                    <p:separator />
+                    <p:menuitem value="Eliminar" icon="ui-icon-close" action="#{user.Logout()}"/>
+                </p:submenu>
+                <f:facet name="options">
+                    <h:commandButton value="Logout" action="#{user.Logout()}"/>
+                </f:facet>
+            </p:menubar>
         </h:form>
     </h:body>
-    <ui:insert name="contenido"/>
 </html>

@@ -3,19 +3,20 @@
  * and open the template in the editor.
  */
 package Daos;
+
+import Modelo.Terceros;
 import java.util.ArrayList;
 import org.hibernate.HibernateException;
+import org.hibernate.Query;
 import org.hibernate.Session;
 import org.hibernate.Transaction;
-import Modelo.Terceros;
-import org.hibernate.Query;
+
 /**
  *
  * @author romero
  */
-public class DaoClientes implements IDAO<Terceros>
-{
-    private Session session;
+public class DaoProveedores implements IDAO<Terceros>
+{private Session session;
     private Transaction tx;
     
     private void iniciaOperacion() throws HibernateException 
@@ -104,7 +105,7 @@ public class DaoClientes implements IDAO<Terceros>
         { 
             iniciaOperacion(); 
 
-            Query query=session.createQuery("FROM Terceros c WHERE c.email=:mail AND c.escliente=1");
+            Query query=session.createQuery("FROM Terceros p WHERE p.email=:mail AND p.esproveedor=1");
 
             query.setString("mail",atributo);
 
@@ -125,7 +126,7 @@ public class DaoClientes implements IDAO<Terceros>
         return cliente;
     }
     
-    public synchronized Terceros GetByName(String nom,String ape)
+    public synchronized Terceros GetByRazon(String raz)
     {
         Terceros cliente=null;
         
@@ -133,11 +134,9 @@ public class DaoClientes implements IDAO<Terceros>
         { 
             iniciaOperacion(); 
 
-            Query query=session.createQuery("FROM Terceros c WHERE c.nombre=:nom AND c.apellido=:ape AND c.escliente=1");
+            Query query=session.createQuery("FROM Terceros p WHERE p.razonsocial=:rs AND p.esproveedor=1");
 
-            query.setString("nom",nom);
-            
-            query.setString("ape",ape);
+            query.setString("rs",raz);
 
             cliente=(Terceros)query.uniqueResult();
         }
@@ -156,7 +155,7 @@ public class DaoClientes implements IDAO<Terceros>
         return cliente;
     }
     
-    public synchronized Terceros GetByDNI(int dni)
+    public synchronized Terceros GetByCUIT(int cuit)
     {
         Terceros cliente=null;
         
@@ -164,9 +163,9 @@ public class DaoClientes implements IDAO<Terceros>
         { 
             iniciaOperacion(); 
 
-            Query query=session.createQuery("FROM Terceros c WHERE c.dni=:doc AND c.escliente=1");
+            Query query=session.createQuery("FROM Terceros p WHERE p.cuit=:cu AND p.esproveedor=1");
 
-            query.setInteger("doc", dni);
+            query.setInteger("cu",cuit);
 
             cliente=(Terceros)query.uniqueResult();
         }
@@ -194,7 +193,7 @@ public class DaoClientes implements IDAO<Terceros>
         { 
             iniciaOperacion(); 
 
-            Query query=session.createQuery("FROM Terceros c WHERE c.idtercero=:id");
+            Query query=session.createQuery("FROM Terceros p WHERE p.idtercero=:id");
 
             query.setParameter("id",Atributo);
 
@@ -224,7 +223,7 @@ public class DaoClientes implements IDAO<Terceros>
         { 
             iniciaOperacion(); 
 
-            Query query=session.createQuery("FROM Terceros c WHERE c.escliente=1");
+            Query query=session.createQuery("FROM Terceros p WHERE p.esproveedor=1");
 
             Lista=(ArrayList)query.list();
         }

@@ -10,9 +10,9 @@ import java.util.Set;
  */
 public class Tiposoperario  implements java.io.Serializable {
 
-
      private Integer idtipooperario;
      private String tipo;
+     
      private Set<Operarios> operarioses = new HashSet<Operarios>(0);
 
     public Tiposoperario() {

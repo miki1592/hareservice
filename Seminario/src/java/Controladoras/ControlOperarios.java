@@ -9,6 +9,8 @@ import Daos.DaoTiposOperarios;
 import Modelo.Operarios;
 import Modelo.Tiposoperario;
 import java.util.ArrayList;
+import javax.faces.application.FacesMessage;
+import javax.faces.context.FacesContext;
 
 /**
  *
@@ -29,7 +31,7 @@ public class ControlOperarios
     }
     
     private Tiposoperario[] Lista;
-    
+
     DaoOperarios d_operarios;
     
     DaoTiposOperarios d_tipos_opers;
@@ -44,10 +46,6 @@ public class ControlOperarios
     
     private boolean logeado=false;
     
-    private String mensaje="";
-    
-    private boolean HayMensaje=false;
-    
     public void VaciarCampos() 
     {
         agregar.setNombre("");
@@ -61,28 +59,76 @@ public class ControlOperarios
         agregar.setTiposoperario(new Tiposoperario());
     }
     
-    public String AgregarOperario()
+    public void addMessage(String summary) 
     {
-        String Salida="abmoperarios";
+        FacesMessage message = new FacesMessage(FacesMessage.SEVERITY_INFO, summary,  null);
+        FacesContext.getCurrentInstance().addMessage(null, message);
+    }
+    
+    public String AgregarOperario() 
+    {
+        String Salida = "agregaroperarios";
         
-        try
+        boolean continuar = true;
+
+        try 
         {
-            if(d_operarios.Agregar(agregar)==0)
+            if (agregar.getNombre().equals(""))
             {
-                mensaje="Ha ocurrido un error, el operario no pudo ser agregado";
+                System.out.println("Dio null");
+                FacesMessage message = new FacesMessage(FacesMessage.SEVERITY_ERROR, "Ingrese Nombre", null);
+                FacesContext.getCurrentInstance().addMessage("txt_name", message);
+                continuar = false;
             }
             
-            mensaje="Operario agregado correctamente";
+            if(agregar.getUsuario().equals(""))
+            {
+                FacesMessage message = new FacesMessage(FacesMessage.SEVERITY_ERROR, "Ingrese Usuario", null);
+                FacesContext.getCurrentInstance().addMessage("txt_user", message);
+                continuar = false;
+            }
             
-            HayMensaje=true;
+            if(agregar.getPass().equals(""))
+            {
+                FacesMessage message = new FacesMessage(FacesMessage.SEVERITY_ERROR, "Ingrese Contraseña", null);
+                FacesContext.getCurrentInstance().addMessage("txt_pass", message);
+                continuar = false;
+            }
+            
+            if(agregar.getEmail().equals(""))
+            {
+                FacesMessage message = new FacesMessage(FacesMessage.SEVERITY_ERROR, "Ingrese Email", null);
+                FacesContext.getCurrentInstance().addMessage("txt_email", message);
+                continuar = false;
+            }
+            
+            if(agregar.getTiposoperario().getIdtipooperario()==null || agregar.getTiposoperario().getIdtipooperario()==0)
+            {
+                FacesMessage message = new FacesMessage(FacesMessage.SEVERITY_ERROR, "Seleccione tipo de operario", null);
+                FacesContext.getCurrentInstance().addMessage("txt_tipo", message);
+                continuar = false;
+            }
+            
+            if (continuar) 
+            {
+                if (d_operarios.Agregar(agregar) == 0) 
+                {
+                    addMessage("Error al realizar la acción, verifique los datos.");
+                }
+
+                addMessage("Operario agregado correctamente");
+            }
             
             return Salida;
-        }
-        catch(Exception ex)
+        } 
+        catch (Exception ex)
         {
-            return "ErrorOperarios";
-        }
-        finally
+            FacesMessage message = new FacesMessage(FacesMessage.SEVERITY_ERROR, "Error al realizar la acción, verifique los datos.", null);
+            FacesContext.getCurrentInstance().addMessage(null, message);
+            
+            return Salida;
+        } 
+        finally 
         {
             VaciarCampos();
         }
@@ -96,48 +142,104 @@ public class ControlOperarios
         {
             d_operarios.Eliminar(o);
             
-            mensaje="Operario eliminado correctamente";
-            
-            HayMensaje=true;
+            addMessage("Operario eliminado correctamente");
             
             return Salida;
         }
         catch(Exception ex)
         {
-            return "ErrorOperarios";
+            FacesMessage message = new FacesMessage(FacesMessage.SEVERITY_ERROR, "Error al realizar la acción, verifique los datos.", null);
+            FacesContext.getCurrentInstance().addMessage(null, message);
+            
+            return Salida;
         }
     }
     
-    public String ProcesarEditar(Operarios o)
+    public String SeleccionarOperario(Operarios o)
     {
-        String Salida="EditarOperarios";
+        String Salida="editaroperarios";
         
         editar=o;
-        
+
         return Salida;
     }
     
     public String ActualizarOperario()
     {
         String Salida="abmoperarios";
+        boolean continuar=true;
         
         try
         {
-            d_operarios.Actualizar(editar);
-            
-            mensaje="Operario modificado correctamente";
-            
-            HayMensaje=true;
+            if (editar.getIdoperario()!=null || editar.getIdoperario()!=0) 
+            {
+                if (editar.getNombre().equals(""))
+                {
+                    FacesMessage message = new FacesMessage(FacesMessage.SEVERITY_ERROR, "Ingrese Nombre", null);
+                    FacesContext.getCurrentInstance().addMessage("txt_name", message);
+                    continuar = false;
+                    Salida="editaroperarios";
+                }
+
+                if (editar.getUsuario().equals("")) 
+                {
+                    FacesMessage message = new FacesMessage(FacesMessage.SEVERITY_ERROR, "Ingrese Usuario", null);
+                    FacesContext.getCurrentInstance().addMessage("txt_user", message);
+                    continuar = false;
+                    Salida="editaroperarios";
+                }
+
+                if (editar.getPass().equals("")) 
+                {
+                    FacesMessage message = new FacesMessage(FacesMessage.SEVERITY_ERROR, "Ingrese Contraseña", null);
+                    FacesContext.getCurrentInstance().addMessage("txt_pass", message);
+                    continuar = false;
+                    Salida="editaroperarios";
+                }
+
+                if (editar.getEmail().equals("")) 
+                {
+                    FacesMessage message = new FacesMessage(FacesMessage.SEVERITY_ERROR, "Ingrese Email", null);
+                    FacesContext.getCurrentInstance().addMessage("txt_email", message);
+                    continuar = false;
+                    Salida="editaroperarios";
+                }
+
+                if (editar.getTiposoperario().getIdtipooperario() == null || editar.getTiposoperario().getIdtipooperario() == 0) 
+                {
+                    FacesMessage message = new FacesMessage(FacesMessage.SEVERITY_ERROR, "Seleccione tipo de operario", null);
+                    FacesContext.getCurrentInstance().addMessage("txt_tipo", message);
+                    continuar = false;
+                    Salida="editaroperarios";
+                }
+
+                if (continuar) 
+                {
+                    d_operarios.Actualizar(editar);
+
+                    addMessage("Operario editado correctamente");
+
+                }
+            }
+            else
+                addMessage("Seleccione operario");
             
             return Salida;
         }
         catch(Exception ex)
         {
-            return "ErrorOperarios";
+            FacesMessage message = new FacesMessage(FacesMessage.SEVERITY_ERROR, "Error al realizar la acción, verifique los datos.", null);
+            FacesContext.getCurrentInstance().addMessage(null, message);
+            
+            return Salida;
         }
         finally
         {
-            editar=null;
+            if(continuar)
+            {
+                System.out.println("continuar true");
+                editar=new Operarios();
+            }
         }
     }
     
@@ -179,7 +281,7 @@ public class ControlOperarios
         
         logeado=false;
         
-        return salida;
+        return "index.xhtml";
     }
     
     public ArrayList ListarOperarios()
@@ -195,18 +297,6 @@ public class ControlOperarios
             return null;
         }
     }
-    
-    public String LeerMensaje()
-    {
-        String m=mensaje;
-        
-        mensaje="";
-        
-        HayMensaje=false;
-        
-        return m;
-    }
-    
     
     public Tiposoperario[] ListarTiposOperarios()
     {
@@ -272,35 +362,7 @@ public class ControlOperarios
     public void setLogeado(boolean logeado) {
         this.logeado = logeado;
     }
-
-    /**
-     * @return the mensaje
-     */
-    public String getMensaje() {
-        return mensaje;
-    }
-
-    /**
-     * @param mensaje the mensaje to set
-     */
-    public void setMensaje(String mensaje) {
-        this.mensaje = mensaje;
-    }
-
-    /**
-     * @return the HayMensaje
-     */
-    public boolean isHayMensaje() {
-        return HayMensaje;
-    }
-
-    /**
-     * @param HayMensaje the HayMensaje to set
-     */
-    public void setHayMensaje(boolean HayMensaje) {
-        this.HayMensaje = HayMensaje;
-    }
-
+    
     /**
      * @return the agregar
      */

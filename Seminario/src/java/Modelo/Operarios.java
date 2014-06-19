@@ -11,19 +11,19 @@ import java.util.Set;
 public class Operarios  implements java.io.Serializable {
 
 
-     private Integer idoperario;
+     private Integer idoperario; 
      private Tiposoperario tiposoperario;
      private String nombre;
      private String usuario;
      private String pass;
      private String email;
+     
      private Set<Tareas> tareases = new HashSet<Tareas>(0);
 
     public Operarios() {
         tiposoperario=new Tiposoperario();
     }
 
-	
     public Operarios(Tiposoperario tiposoperario, String nombre, String usuario, String pass, String email) {
         this.tiposoperario = tiposoperario;
         this.nombre = nombre;

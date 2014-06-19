@@ -5,7 +5,6 @@
 package Daos;
 
 import Modelo.Operarios;
-import java.math.BigInteger;
 import java.util.ArrayList;
 import org.hibernate.HibernateException;
 import org.hibernate.Query;
@@ -34,7 +33,7 @@ public class DaoOperarios implements IDAO<Operarios>
     }  
 
     @Override
-    public int Agregar(Operarios entidad) 
+    public synchronized int Agregar(Operarios entidad) 
     {
         int id = 0;  
 
@@ -59,7 +58,7 @@ public class DaoOperarios implements IDAO<Operarios>
     }
 
     @Override
-    public void Actualizar(Operarios entidad) 
+    public synchronized void Actualizar(Operarios entidad) 
     {
         try 
         { 
@@ -79,7 +78,7 @@ public class DaoOperarios implements IDAO<Operarios>
     }
 
     @Override
-    public void Eliminar(Operarios entidad) 
+    public synchronized void Eliminar(Operarios entidad) 
     {
         try 
         { 
@@ -99,7 +98,7 @@ public class DaoOperarios implements IDAO<Operarios>
     }
 
     @Override
-    public Operarios Get(String atributo) 
+    public synchronized Operarios Get(String atributo) 
     {
         Operarios o=null;
         
@@ -129,7 +128,7 @@ public class DaoOperarios implements IDAO<Operarios>
     }
 
     @Override
-    public Operarios Get(int Atributo)
+    public synchronized Operarios Get(int Atributo)
     {
         Operarios o=null;
         
@@ -159,7 +158,7 @@ public class DaoOperarios implements IDAO<Operarios>
     }
 
     @Override
-    public ArrayList Listar()
+    public synchronized ArrayList Listar()
     {
         ArrayList Lista=new ArrayList();  
         
@@ -186,7 +185,7 @@ public class DaoOperarios implements IDAO<Operarios>
         return Lista;
     }
     
-    public Operarios Loguear(String username,String pass)
+    public synchronized Operarios Loguear(String username,String pass)
     {
         Operarios o=null;
         
