@@ -46,6 +46,8 @@ public class ControlOperarios
     
     private boolean logeado=false;
     
+    private String repass="";
+    
     public void VaciarCampos() 
     {
         agregar.setNombre("");
@@ -57,6 +59,8 @@ public class ControlOperarios
         agregar.setEmail("");
 
         agregar.setTiposoperario(new Tiposoperario());
+        
+        repass="";
     }
     
     public void addMessage(String summary) 
@@ -73,40 +77,12 @@ public class ControlOperarios
 
         try 
         {
-            if (agregar.getNombre().equals(""))
+            if(!agregar.getPass().equals(repass))
             {
-                System.out.println("Dio null");
-                FacesMessage message = new FacesMessage(FacesMessage.SEVERITY_ERROR, "Ingrese Nombre", null);
-                FacesContext.getCurrentInstance().addMessage("txt_name", message);
-                continuar = false;
-            }
-            
-            if(agregar.getUsuario().equals(""))
-            {
-                FacesMessage message = new FacesMessage(FacesMessage.SEVERITY_ERROR, "Ingrese Usuario", null);
-                FacesContext.getCurrentInstance().addMessage("txt_user", message);
-                continuar = false;
-            }
-            
-            if(agregar.getPass().equals(""))
-            {
-                FacesMessage message = new FacesMessage(FacesMessage.SEVERITY_ERROR, "Ingrese Contraseña", null);
-                FacesContext.getCurrentInstance().addMessage("txt_pass", message);
-                continuar = false;
-            }
-            
-            if(agregar.getEmail().equals(""))
-            {
-                FacesMessage message = new FacesMessage(FacesMessage.SEVERITY_ERROR, "Ingrese Email", null);
-                FacesContext.getCurrentInstance().addMessage("txt_email", message);
-                continuar = false;
-            }
-            
-            if(agregar.getTiposoperario().getIdtipooperario()==null || agregar.getTiposoperario().getIdtipooperario()==0)
-            {
-                FacesMessage message = new FacesMessage(FacesMessage.SEVERITY_ERROR, "Seleccione tipo de operario", null);
-                FacesContext.getCurrentInstance().addMessage("txt_tipo", message);
-                continuar = false;
+                FacesMessage message = new FacesMessage(FacesMessage.SEVERITY_WARN, "La contraseñas no son iguales. Reingrese nuavamente",  null);
+                FacesContext.getCurrentInstance().addMessage(null, message);
+                continuar=false;
+                repass="";
             }
             
             if (continuar) 
@@ -167,63 +143,20 @@ public class ControlOperarios
     public String ActualizarOperario()
     {
         String Salida="abmoperarios";
-        boolean continuar=true;
         
-        try
+        try 
         {
-            if (editar.getIdoperario()!=null || editar.getIdoperario()!=0) 
+            if (editar.getIdoperario() != null || editar.getIdoperario() != 0) 
             {
-                if (editar.getNombre().equals(""))
-                {
-                    FacesMessage message = new FacesMessage(FacesMessage.SEVERITY_ERROR, "Ingrese Nombre", null);
-                    FacesContext.getCurrentInstance().addMessage("txt_name", message);
-                    continuar = false;
-                    Salida="editaroperarios";
-                }
+                d_operarios.Actualizar(editar);
 
-                if (editar.getUsuario().equals("")) 
-                {
-                    FacesMessage message = new FacesMessage(FacesMessage.SEVERITY_ERROR, "Ingrese Usuario", null);
-                    FacesContext.getCurrentInstance().addMessage("txt_user", message);
-                    continuar = false;
-                    Salida="editaroperarios";
-                }
-
-                if (editar.getPass().equals("")) 
-                {
-                    FacesMessage message = new FacesMessage(FacesMessage.SEVERITY_ERROR, "Ingrese Contraseña", null);
-                    FacesContext.getCurrentInstance().addMessage("txt_pass", message);
-                    continuar = false;
-                    Salida="editaroperarios";
-                }
-
-                if (editar.getEmail().equals("")) 
-                {
-                    FacesMessage message = new FacesMessage(FacesMessage.SEVERITY_ERROR, "Ingrese Email", null);
-                    FacesContext.getCurrentInstance().addMessage("txt_email", message);
-                    continuar = false;
-                    Salida="editaroperarios";
-                }
-
-                if (editar.getTiposoperario().getIdtipooperario() == null || editar.getTiposoperario().getIdtipooperario() == 0) 
-                {
-                    FacesMessage message = new FacesMessage(FacesMessage.SEVERITY_ERROR, "Seleccione tipo de operario", null);
-                    FacesContext.getCurrentInstance().addMessage("txt_tipo", message);
-                    continuar = false;
-                    Salida="editaroperarios";
-                }
-
-                if (continuar) 
-                {
-                    d_operarios.Actualizar(editar);
-
-                    addMessage("Operario editado correctamente");
-
-                }
-            }
-            else
+                addMessage("Operario editado correctamente");
+            } 
+            else 
+            {
                 addMessage("Seleccione operario");
-            
+            }
+
             return Salida;
         }
         catch(Exception ex)
@@ -235,11 +168,7 @@ public class ControlOperarios
         }
         finally
         {
-            if(continuar)
-            {
-                System.out.println("continuar true");
-                editar=new Operarios();
-            }
+            editar=new Operarios();
         }
     }
     
@@ -403,6 +332,20 @@ public class ControlOperarios
      */
     public void setLista(Tiposoperario[] Lista) {
         this.Lista = Lista;
+    }
+
+    /**
+     * @return the repass
+     */
+    public String getRepass() {
+        return repass;
+    }
+
+    /**
+     * @param repass the repass to set
+     */
+    public void setRepass(String repass) {
+        this.repass = repass;
     }
 
 }

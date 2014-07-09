@@ -45,100 +45,67 @@ and open the template in the editor.
         </style>
     </h:head>
     <h:body>
-        <h:form rendered="#{user.logeado == false}">
-            <h1 align="center"> Usted no esta logueado... </h1>
-            <br/>
-            <center>
-                <h:commandLink value="Logueo" action="#{user.Logout()}" style="color: blue; font-family: cursive; font-size: x-large "/>
-            </center>
-        </h:form>        
-        <h:form rendered="#{user.oper_logeado.getTiposoperario().getIdtipooperario()!= 2}">
-            <h1 align="center"> Usted no esta logueado como administrador... </h1>  
-            <br/>
-            <center>
-                <h:commandLink value="Logueo" action="#{user.Logout()}" style="color: blue; font-family: cursive; font-size: x-large "/>
-            </center>
-        </h:form>
-        <h:form rendered="#{user.logeado==true and user.oper_logeado.getTiposoperario().getIdtipooperario()== 2}">
-            <p:growl id="messages"/>
-            <p:menubar style="background-color: bisque; color: blue">  
-                <p:menuitem value="Inicio" action="principal" icon="ui-icon-home" ajax="false"/>
-                <p:submenu label="Gestion Operarios">
-                    <p:menuitem value="Listado de Operarios" icon="ui-icon-document" action="abmoperarios" ajax="false"/>
-                    <p:separator />
-                    <p:menuitem value="Nuevo" icon="ui-icon-disk" action="agregaroperarios" ajax="false"/>
-                </p:submenu>
-                <p:submenu label="Gestion Clientes">
-                    <p:menuitem value="Listado de Clientes" icon="ui-icon-document"/>
-                    <p:separator />
-                    <p:menuitem value="Nuevo" icon="ui-icon-disk"/>
-                </p:submenu>
-                <p:menuitem value="Logout" icon="ui-icon-arrowthickstop-1-e" action="#{user.Logout()}" ajax="false"/>
-            </p:menubar>
-            <center>
-                <br/>
-                <h:form id="form">
-                    <p:growl id="msgs" />
-                    <p:panel header="Crear un nuevo Operario" style="margin-bottom:20px">
-                        <p:messages globalOnly="true"/>
-                        
-                        <h:panelGrid columns="2" cellpadding="5">
-                            <h:outputLabel value="Nombre : *" for="txt_name"></h:outputLabel>
-                            <p:inputText id="txt_name" value="#{user.agregar.nombre}" label="Nombre"/>
-                            <p:message for="txt_name"/>
-                            <br/>
-                            
-                            <h:outputLabel value="Usuario : *" for="txt_user"></h:outputLabel>
-                            <p:inputText id="txt_user" value="#{user.agregar.usuario}" label="Usuario"/>
-                            <p:message for="txt_user"/>
-                            <br/>
-                            
-                            <h:outputLabel value="Contraseña : *" for="txt_pass"></h:outputLabel>
-                            <p:password id="txt_pass" value="#{user.agregar.pass}" label="Contraseña"/>
-                            <p:message for="txt_pass" />
-                            <br/>
-                            
-                            <h:outputLabel value="Email : *" for="txt_email"></h:outputLabel>
-                            <p:inputText id="txt_email" value="#{user.agregar.email}" label="Email"
-                                         validatorMessage="Formato de email incorrecto">
-                                <f:validateRegex pattern="^[_A-Za-z0-9-\+]+(\.[_A-Za-z0-9-]+)*@[A-Za-z0-9-]+(\.[A-Za-z0-9]+)*(\.[A-Za-z]{2,})$" />
-                            </p:inputText>
-                            <p:message for="txt_email" />
-                            <br/>
-           
-                            <h:outputLabel value="Tipo Operario : *" for="txt_tipo"></h:outputLabel>
-                            <p:selectOneMenu id="txt_tipo" value="#{user.agregar.tiposoperario.idtipooperario}" requiredMessage="Seleccione tipo de operario">   
-                                <f:selectItem itemLabel="Seleccione Tipo Operario" itemValue=""/>
-                                <f:selectItems value="#{user.lista}" var="tips" itemLabel="#{tips.tipo}" itemValue="#{tips.idtipooperario}"/>  
-                            </p:selectOneMenu>
-                            <p:message for="txt_tipo" />
-                            <br/> 
-                            
-                            <p:commandButton id="btn_reset" value="Limpiar" type="reset"/>                      
-                            <p:commandButton value="Guardar" id="withIcon" actionListener="#{user.AgregarOperario()}" icon="ui-icon-disk" ajax="false"/>                           
-                        </h:panelGrid>
-                    </p:panel>
-                    <p:outputPanel id="operarioslist">
-                        <p:dataTable value="#{user.ListarOperarios()}" var="opers" id="opersTable">
-                            <p:column headerText="Nombre">
-                                <h:outputText value="#{opers.nombre}" />
-                            </p:column>
-                            <p:column headerText="Usuario">
-                                <f:facet name="header">
-                                    <h:outputText value="Usuario" />
-                                </f:facet>
-                                <h:outputText value="#{opers.usuario}" />
-                            </p:column>
-                            <p:column headerText="Email">
-                                <h:outputText value="#{opers.email}" />
-                            </p:column>                      
-                            <p:column headerText="Tipo Operario">
-                                <h:outputText value="#{opers.tiposoperario.tipo}" />
-                            </p:column>
-                        </p:dataTable>
-                    </p:outputPanel>
+        <ui:composition template="MenuAdmin.xhtml">
+            <ui:define name="contenido" >
+                <h:form rendered="#{user.logeado==true and user.oper_logeado.getTiposoperario().getIdtipooperario()== 2}">
+                    <center>
+                        <br/>
+                        <h:form id="form">
+                            <p:growl id="msgs" />
+                            <p:panel header="Crear un nuevo Operario" style="margin-bottom:20px">
+                                <h:panelGrid columns="2" cellpadding="5">
+                                    <h:outputLabel value="Nombre : *" for="txt_name"></h:outputLabel>
+                                    <p:inputText id="txt_name" value="#{user.agregar.nombre}" label="Nombre" required="true" requiredMessage="Ingrese nombre"></p:inputText>
+
+                                    <h:outputLabel value="Usuario : *" for="txt_user"></h:outputLabel>
+                                    <p:inputText id="txt_user" value="#{user.agregar.usuario}" label="Usuario" required="true" requiredMessage="Ingrese usuario"></p:inputText>
+                                    
+                                    <h:outputLabel value="Contraseña : *" for="txt_pass"></h:outputLabel>
+                                    <p:password id="txt_pass" value="#{user.agregar.pass}" label="Contraseña" required="true" requiredMessage="Ingrese contraseña"></p:password>
+                                    
+                                    <h:outputLabel value="Confirme Contraseña : *" for="txt_repass"></h:outputLabel>
+                                    <p:password id="txt_repass" value="#{user.repass}" label="ReContraseña" required="true" requiredMessage="Confirme contraseña"></p:password>
+
+                                    <h:outputLabel value="Email : *" for="txt_email"></h:outputLabel>
+                                    <p:inputText id="txt_email" value="#{user.agregar.email}" label="Email"
+                                                 validatorMessage="Formato de email incorrecto" required="true" requiredMessage="Ingrese email">
+                                        <f:validateRegex pattern="^[_A-Za-z0-9-\+]+(\.[_A-Za-z0-9-]+)*@[A-Za-z0-9-]+(\.[A-Za-z0-9]+)*(\.[A-Za-z]{2,})$" />
+                                    </p:inputText>
+
+                                    <h:outputLabel value="Tipo Operario : *" for="txt_tipo"></h:outputLabel>
+                                    <p:selectOneMenu id="txt_tipo" value="#{user.agregar.tiposoperario.idtipooperario}" requiredMessage="Seleccione tipo de operario" required="true">   
+                                        <f:selectItem itemLabel="Seleccione Tipo Operario" itemValue=""/>
+                                        <f:selectItems value="#{user.lista}" var="tips" itemLabel="#{tips.tipo}" itemValue="#{tips.idtipooperario}"/>  
+                                    </p:selectOneMenu>
+
+                                    <p:commandButton id="btn_reset" value="Limpiar" type="reset" styleClass="btn"/>                      
+                                    <p:commandButton value="Guardar" id="btn_guardar" actionListener="#{user.AgregarOperario()}" icon="ui-icon-disk" ajax="false" styleClass="btn"/> 
+                                    
+                                </h:panelGrid>
+                            </p:panel>
+                            <p:outputPanel id="operarioslist">
+                                <p:dataTable value="#{user.ListarOperarios()}" var="opers" id="opersTable">
+                                    <p:column headerText="Nombre">
+                                        <h:outputText value="#{opers.nombre}" />
+                                    </p:column>
+                                    <p:column headerText="Usuario">
+                                        <f:facet name="header">
+                                            <h:outputText value="Usuario" />
+                                        </f:facet>
+                                        <h:outputText value="#{opers.usuario}" />
+                                    </p:column>
+                                    <p:column headerText="Email">
+                                        <h:outputText value="#{opers.email}" />
+                                    </p:column>                      
+                                    <p:column headerText="Tipo Operario">
+                                        <h:outputText value="#{opers.tiposoperario.tipo}" />
+                                    </p:column>
+                                </p:dataTable>
+                            </p:outputPanel>
+                        </h:form>
+                    </center>
                 </h:form>
-            </center>
-        </h:form>
+            </ui:define>                                   
+        </ui:composition>
     </h:body>
 </html>

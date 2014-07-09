@@ -11,9 +11,6 @@
         <many-to-one name="ordenesreparacion" class="Modelo.Ordenesreparacion" fetch="select">
             <column name="ordenrep_id" />
         </many-to-one>
-        <many-to-one name="presupuestos" class="Modelo.Presupuestos" fetch="select">
-            <column name="presupuesto_id" not-null="true" />
-        </many-to-one>
         <many-to-one name="operarios" class="Modelo.Operarios" fetch="select">
             <column name="operario_id" />
         </many-to-one>

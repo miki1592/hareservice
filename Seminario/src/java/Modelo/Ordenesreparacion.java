@@ -19,25 +19,33 @@ public class Ordenesreparacion  implements java.io.Serializable {
      private Date fechaestimada;
      private Date fechafinalizacion;
      private double precio;
+     private String descripcion;
+     private Integer numero;
      private Set<Tareas> tareases = new HashSet<Tareas>(0);
      private Set<Auditoriasordenrep> auditoriasordenreps = new HashSet<Auditoriasordenrep>(0);
 
     public Ordenesreparacion() {
+        estadosreparacion=new Estadosreparacion();
+        terceros=new Terceros();
     }
 
 	
-    public Ordenesreparacion(Terceros terceros, Estadosreparacion estadosreparacion, double precio) {
+    public Ordenesreparacion(Terceros terceros, Estadosreparacion estadosreparacion, double precio,String descripcion,int numero) {
         this.terceros = terceros;
         this.estadosreparacion = estadosreparacion;
         this.precio = precio;
+        this.descripcion=descripcion;
+        this.numero=numero;
     }
-    public Ordenesreparacion(Terceros terceros, Estadosreparacion estadosreparacion, Date fechainicio, Date fechaestimada, Date fechafinalizacion, double precio, Set<Tareas> tareases, Set<Auditoriasordenrep> auditoriasordenreps) {
+    public Ordenesreparacion(Terceros terceros, Estadosreparacion estadosreparacion, Date fechainicio, Date fechaestimada, Date fechafinalizacion, double precio,String descripcion,int numero, Set<Tareas> tareases, Set<Auditoriasordenrep> auditoriasordenreps) {
        this.terceros = terceros;
        this.estadosreparacion = estadosreparacion;
        this.fechainicio = fechainicio;
        this.fechaestimada = fechaestimada;
        this.fechafinalizacion = fechafinalizacion;
        this.precio = precio;
+       this.descripcion=descripcion;
+       this.numero=numero;
        this.tareases = tareases;
        this.auditoriasordenreps = auditoriasordenreps;
     }
@@ -106,8 +114,21 @@ public class Ordenesreparacion  implements java.io.Serializable {
         this.auditoriasordenreps = auditoriasordenreps;
     }
 
+    public String getDescripcion() {
+        return descripcion;
+    }
 
+    public void setDescripcion(String descripcion) {
+        this.descripcion = descripcion;
+    }
 
+    public Integer getNumero() {
+        return numero;
+    }
+
+    public void setNumero(Integer numero) {
+        this.numero = numero;
+    }
 
 }
 

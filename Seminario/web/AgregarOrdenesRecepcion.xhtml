@@ -1,0 +1,106 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!--
+To change this template, choose Tools | Templates
+and open the template in the editor.
+-->
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:h="http://java.sun.com/jsf/html"
+      xmlns:ui="http://java.sun.com/jsf/facelets"
+      xmlns:f="http://java.sun.com/jsf/core"
+      xmlns:p="http://primefaces.org/ui">
+    <h:head>
+        <title>Agregar Ordenes de Recepcion</title>
+        <style>
+            body 
+            {
+                background-color: grey;
+            }
+            h1
+            {
+                text-align: center;
+                font-size: x-large;
+                background-color: lightsalmon;
+            }
+            h2
+            {
+                text-align: center;
+                font-size: x-large;
+                background-color: coral;
+            }
+            #MiTabla
+            {
+                background-color: cadetblue;
+                text-align:center;
+                font-size:large;
+                border: black;
+            }
+            #MiTabla2
+            {
+                background-color: lightcoral;
+                text-align:center;
+                font-size:large;
+                border: black;
+            }
+        </style>
+    </h:head>
+    <h:body>
+        <ui:composition template="MenuAdmin.xhtml">
+            <ui:define name="contenido" >
+                <h:form rendered="#{user.logeado==true and user.oper_logeado.getTiposoperario().getIdtipooperario()== 2}">
+                    <center>
+                        <br/>
+                        <h:form id="form">
+                            <p:growl id="msgs" />
+                            <p:panel header="Crear una nueva Orden de Recepcion" style="margin-bottom:20px">
+                                <h:panelGrid columns="2" cellpadding="5">
+                                    <h:outputLabel value="Descripcion : *" for="txt_descripcion"></h:outputLabel>
+                                    <p:inputTextarea rows="2" cols="60" id="txt_descripcion" value="#{ordenrecep.agregar.descripcion}" label="Descripcion" required="true" requiredMessage="Ingrese descripcion"></p:inputTextarea>                       
+                                    
+                                    <h:outputLabel value="Detalle : *" for="txt_detalle"></h:outputLabel>
+                                    <p:inputTextarea rows="6" cols="60" id="txt_detalle" value="#{ordenrecep.agregar.detalle}" label="Detalle" required="true" requiredMessage="Ingrese detalle"></p:inputTextarea>
+                                    
+                                    <h:outputLabel value="Objetos Adjuntos : " for="txt_adjunto"></h:outputLabel>
+                                    <p:inputTextarea rows="2" cols="60" id="txt_adjunto" value="#{ordenrecep.agregar.adjunto}" label="Adjunto"></p:inputTextarea>
+                                    
+                                    <h:outputLabel value="Fecha : *" for="txt_fecha"></h:outputLabel>
+                                    <p:calendar id="txt_fecha" value="#{ordenrecep.agregar.fecha}" pattern="dd-MM-yyyy" required="true" requiredMessage="Ingrese fecha"/>
+                                        
+                                    <h:outputLabel value="Cliente : *" for="txt_cliente"></h:outputLabel>
+                                    <p:selectOneMenu id="txt_cliente" value="#{ordenrecep.agregar.terceros.idtercero}" requiredMessage="Seleccione cliente" required="true">   
+                                        <f:selectItem itemLabel="Seleccione Cliente" itemValue=""/>
+                                        <f:selectItems value="#{ordenrecep.listaClientes}" var="cli" itemLabel="#{cli.cliente}" itemValue="#{cli.idtercero}"/>  
+                                    </p:selectOneMenu>
+
+                                </h:panelGrid>                 
+                            </p:panel>
+                            <p:button outcome="agregarclientes" value="Alta Cliente" icon="ui-icon-plusthick" styleClass="btn"/>
+                            <h:outputText value="&#160;" /><h:outputText value="&#160;" /><h:outputText value="&#160;" />
+                            <p:commandButton id="btn_reset" value="Limpiar" type="reset" styleClass="btn"/>       
+                            <h:outputText value="&#160;" /><h:outputText value="&#160;" /><h:outputText value="&#160;" />
+                            <p:commandButton value="Guardar" id="btn_guardar" actionListener="#{ordenrecep.AgregarOrdenRecepcion()}" icon="ui-icon-disk" ajax="false" styleClass="btn"/> 
+                            <br/><br/><br/>
+                            <p:outputPanel id="ordenesReceplist">
+                                <p:dataTable value="#{ordenrecep.ListarOrdenesRecepcion()}" var="ordrecep" id="ordenesRecepTable">
+                                    <p:column headerText="Numero">
+                                        <h:outputText value="#{ordrecep.numero}"/>
+                                    </p:column>
+                                    
+                                    <p:column headerText="Descripcion">
+                                        <h:outputText value="#{ordrecep.descripcion}"/>
+                                    </p:column>
+                                    <p:column headerText="Fecha">
+                                        <h:outputText value="#{ordrecep.fecha}"/>
+                                    </p:column>
+                                    <p:column headerText="Cliente">
+                                        <h:outputText value="#{ordrecep.terceros.apellido}, #{ordrecep.terceros.nombre}"/>
+                                    </p:column>                  
+                                </p:dataTable>                             
+                            </p:outputPanel>
+                        </h:form>
+                    </center>
+                </h:form>
+            </ui:define>                                   
+        </ui:composition>
+    </h:body>
+</html>

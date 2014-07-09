@@ -1,0 +1,105 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!--
+To change this template, choose Tools | Templates
+and open the template in the editor.
+-->
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:h="http://java.sun.com/jsf/html"
+      xmlns:ui="http://java.sun.com/jsf/facelets"
+      xmlns:f="http://java.sun.com/jsf/core"
+      xmlns:p="http://primefaces.org/ui">
+    <h:head>
+        <title>Editar Clientes</title>
+        <style>
+            body 
+            {
+                background-color: grey;
+            }
+            h1
+            {
+                text-align: center;
+                font-size: x-large;
+                background-color: lightsalmon;
+            }
+            h2
+            {
+                text-align: center;
+                font-size: x-large;
+                background-color: coral;
+            }
+            #MiTabla
+            {
+                background-color: cadetblue;
+                text-align:center;
+                font-size:large;
+                border: black;
+            }
+            #MiTabla2
+            {
+                background-color: lightcoral;
+                text-align:center;
+                font-size:large;
+                border: black;
+            }
+        </style>
+    </h:head>
+    <h:body>
+        <ui:composition template="MenuAdmin.xhtml">
+            <ui:define name="contenido" >
+                <h:form rendered="#{user.logeado==true and user.oper_logeado.getTiposoperario().getIdtipooperario()== 2}">
+                    <center>
+                        <br/>
+                        <h:form id="formsel" rendered="#{client.editar.idtercero==0}">
+                            <br/>
+                            <h1 align="center"> Seleccione cliente que desea editar. </h1>
+                        </h:form>
+                        <h:form id="form" rendered="#{client.editar.idtercero!=0}">
+                            <p:growl id="msgs" />
+                            <p:panel header="Editar Cliente" style="margin-bottom:20px">
+                                <p:messages globalOnly="true"/>
+                                <h:panelGrid columns="2" cellpadding="5">
+                                    <h:outputLabel value="Nombre : *" for="txt_name"></h:outputLabel>
+                                    <p:inputText id="txt_name" value="#{client.editar.nombre}" label="Nombre" required="true" requiredMessage="Ingrese nombre"></p:inputText>
+
+                                    <h:outputLabel value="Apellido : *" for="txt_ape"></h:outputLabel>
+                                    <p:inputText id="txt_ape" value="#{client.editar.apellido}" label="Apellido" required="true" requiredMessage="Ingrese apellido"></p:inputText>
+                                    
+                                    <h:outputLabel value="CUIT: " for="txt_cuit"></h:outputLabel>
+                                    <p:inputMask mask="99-99999999-99" id="txt_cuit" value="#{client.editar.cuit}" label="Cuit"></p:inputMask>
+                                    
+                                    <h:outputLabel value="DNI: " for="txt_dni"></h:outputLabel>
+                                    <p:inputText id="txt_dni" value="#{client.editar.dni}" label="Dni"></p:inputText>
+
+                                    <h:outputLabel value="Email : *" for="txt_email"></h:outputLabel>
+                                    <p:inputText id="txt_email" value="#{client.editar.email}" label="Email"
+                                                 validatorMessage="Formato de email incorrecto" required="true" requiredMessage="Ingrese email">
+                                        <f:validateRegex pattern="^[_A-Za-z0-9-\+]+(\.[_A-Za-z0-9-]+)*@[A-Za-z0-9-]+(\.[A-Za-z0-9]+)*(\.[A-Za-z]{2,})$" />
+                                    </p:inputText>
+
+                                    <h:outputLabel value="Telefono: " for="txt_tel"></h:outputLabel>
+                                    <p:inputText id="txt_tel" value="#{client.editar.telefono}" label="Tel"></p:inputText>
+                                    
+                                    <h:outputLabel value="Celular: " for="txt_cel"></h:outputLabel>
+                                    <p:inputText id="txt_cel" value="#{client.editar.telefonomovil}" label="Cel"></p:inputText>
+                                    
+                                    <h:outputLabel value="Calle: " for="txt_calle"></h:outputLabel>
+                                    <p:inputText id="txt_calle" value="#{client.editar.calle}" label="Calle"></p:inputText>
+                                    
+                                    <h:outputLabel value="Altura: " for="txt_altura"></h:outputLabel>
+                                    <p:inputText id="txt_altura" value="#{client.editar.altura}" label="Altura"></p:inputText>
+                                    
+                                    <h:outputLabel value="Departamento: " for="txt_dpto"></h:outputLabel>
+                                    <p:inputText id="txt_dpto" value="#{client.editar.dpto}" label="Dpto"></p:inputText>                                          
+                                </h:panelGrid>
+                            </p:panel>  
+                            <center>
+                                <p:commandButton value="Editar" id="withIcon" action="#{client.ActualizarCliente()}" icon="ui-icon-pencil" ajax="false" styleClass="btn"/> 
+                            </center>
+                        </h:form>
+                    </center>
+                </h:form>
+            </ui:define>                                   
+        </ui:composition>
+    </h:body>
+</html>

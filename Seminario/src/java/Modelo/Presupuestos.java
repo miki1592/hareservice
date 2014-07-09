@@ -15,24 +15,28 @@ public class Presupuestos  implements java.io.Serializable {
      private Ordenesrecepcion ordenesrecepcion;
      private double precioestimado;
      private boolean esaceptado;
+     private String tareas;
+     private String opcional;
      private Set<Auditoriaspresupuestos> auditoriaspresupuestoses = new HashSet<Auditoriaspresupuestos>(0);
-     private Set<Tareas> tareases = new HashSet<Tareas>(0);
 
     public Presupuestos() {
     }
 
 	
-    public Presupuestos(Ordenesrecepcion ordenesrecepcion, double precioestimado, boolean esaceptado) {
+    public Presupuestos(Ordenesrecepcion ordenesrecepcion, double precioestimado, boolean esaceptado,String tareas,String opcional) {
         this.ordenesrecepcion = ordenesrecepcion;
         this.precioestimado = precioestimado;
         this.esaceptado = esaceptado;
+        this.tareas=tareas;
+        this.opcional=opcional;
     }
-    public Presupuestos(Ordenesrecepcion ordenesrecepcion, double precioestimado, boolean esaceptado, Set<Auditoriaspresupuestos> auditoriaspresupuestoses, Set<Tareas> tareases) {
+    public Presupuestos(Ordenesrecepcion ordenesrecepcion, double precioestimado, boolean esaceptado,String tareas,String opcional, Set<Auditoriaspresupuestos> auditoriaspresupuestoses) {
        this.ordenesrecepcion = ordenesrecepcion;
        this.precioestimado = precioestimado;
        this.esaceptado = esaceptado;
-       this.auditoriaspresupuestoses = auditoriaspresupuestoses;
-       this.tareases = tareases;
+       this.tareas=tareas;
+       this.opcional=opcional;
+       this.auditoriaspresupuestoses = auditoriaspresupuestoses;    
     }
    
     public Integer getIdpresupuesto() {
@@ -70,16 +74,22 @@ public class Presupuestos  implements java.io.Serializable {
     public void setAuditoriaspresupuestoses(Set<Auditoriaspresupuestos> auditoriaspresupuestoses) {
         this.auditoriaspresupuestoses = auditoriaspresupuestoses;
     }
-    public Set<Tareas> getTareases() {
-        return this.tareases;
-    }
-    
-    public void setTareases(Set<Tareas> tareases) {
-        this.tareases = tareases;
+
+    public String getTareas() {
+        return tareas;
     }
 
+    public void setTareas(String tareas) {
+        this.tareas = tareas;
+    }
 
+    public String getOpcional() {
+        return opcional;
+    }
 
+    public void setOpcional(String opcional) {
+        this.opcional = opcional;
+    }
 
 }
 

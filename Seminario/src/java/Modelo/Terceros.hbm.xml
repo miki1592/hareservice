@@ -41,6 +41,12 @@
         <property name="dpto" type="string">
             <column name="dpto" length="65535" />
         </property>
+        <property name="usuario" type="string">
+            <column name="usuario" length="65535" />
+        </property>
+        <property name="contraseña" type="string">
+            <column name="contraseña" length="65535" />
+        </property>
         <property name="esproveedor" type="java.lang.Boolean">
             <column name="esproveedor" />
         </property>

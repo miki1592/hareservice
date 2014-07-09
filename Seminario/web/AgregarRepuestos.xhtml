@@ -1,0 +1,117 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!--
+To change this template, choose Tools | Templates
+and open the template in the editor.
+-->
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:h="http://java.sun.com/jsf/html"
+      xmlns:ui="http://java.sun.com/jsf/facelets"
+      xmlns:f="http://java.sun.com/jsf/core"
+      xmlns:p="http://primefaces.org/ui">
+    <h:head>
+        <title>Agregar Repuestos</title>
+        <style>
+            body 
+            {
+                background-color: grey;
+            }
+            h1
+            {
+                text-align: center;
+                font-size: x-large;
+                background-color: lightsalmon;
+            }
+            h2
+            {
+                text-align: center;
+                font-size: x-large;
+                background-color: coral;
+            }
+            #MiTabla
+            {
+                background-color: cadetblue;
+                text-align:center;
+                font-size:large;
+                border: black;
+            }
+            #MiTabla2
+            {
+                background-color: lightcoral;
+                text-align:center;
+                font-size:large;
+                border: black;
+            }
+        </style>
+    </h:head>
+    <h:body>
+        <ui:composition template="MenuAdmin.xhtml">
+            <ui:define name="contenido" >
+                <h:form rendered="#{user.logeado==true and user.oper_logeado.getTiposoperario().getIdtipooperario()== 2}">
+                    <center>
+                        <br/>
+                        <h:form id="form">
+                            <p:growl id="msgs" />
+                            <p:panel header="Crear un nuevo Repuesto" style="margin-bottom:20px">
+                                <h:panelGrid columns="2" cellpadding="5">
+                                    <h:outputLabel value="Codigo : " for="txt_cod"></h:outputLabel>
+                                    <p:inputText id="txt_cod" value="#{resp.agregar.codigoprov}" label="Codigo"></p:inputText>
+
+                                    <h:outputLabel value="Tipo de Repuesto : *" for="txt_tipores"></h:outputLabel>
+                                    <p:selectOneMenu id="txt_tipores" value="#{resp.agregar.tiposrepuesto.idtiporepuesto}" requiredMessage="Seleccione tipo de repuesto" required="true">   
+                                        <f:selectItem itemLabel="Seleccione Tipo de Repuesto" itemValue=""/>
+                                        <f:selectItems value="#{resp.listaTRepuestos}" var="tires" itemLabel="#{tires.tipo}" itemValue="#{tires.idtiporepuesto}"/>  
+                                    </p:selectOneMenu>
+                                    
+                                    <h:outputLabel value="Proveedor : *" for="txt_prov"></h:outputLabel>
+                                    <p:selectOneMenu id="txt_prov" value="#{resp.agregar.terceros.idtercero}" requiredMessage="Seleccione proveedor" required="true">   
+                                        <f:selectItem itemLabel="Seleccione Proveedor" itemValue=""/>
+                                        <f:selectItems value="#{resp.listaProveedores}" var="prov" itemLabel="#{prov.razonsocial}" itemValue="#{prov.idtercero}"/>  
+                                    </p:selectOneMenu>
+                                    
+                                    <h:outputLabel value="Tipo de Calidad : *" for="txt_tcal"></h:outputLabel>
+                                    <p:selectOneMenu id="txt_tcal" value="#{resp.agregar.tiposcalidad.idtipocalidad}" requiredMessage="Seleccione tipo de calidad" required="true">   
+                                        <f:selectItem itemLabel="Seleccione Tipo de Calidad" itemValue=""/>
+                                        <f:selectItems value="#{resp.listaTCalidad}" var="tcal" itemLabel="#{tcal.tipo}" itemValue="#{tcal.idtipocalidad}"/>  
+                                    </p:selectOneMenu>
+                                    
+                                    <h:outputLabel value="Precio : $ *" for="txt_precio"></h:outputLabel>
+                                    <p:inputText id="txt_precio" value="#{resp.agregar.precio}" label="Precio" required="true" requiredMessage="Ingrese precio"></p:inputText>
+                                    
+                                    <h:outputLabel value="Origen : " for="txt_origen"></h:outputLabel>
+                                    <p:inputText id="txt_origen" value="#{resp.agregar.origen}" label="Origen"></p:inputText>
+                                                                        
+                                    <p:commandButton id="btn_reset" value="Limpiar" type="reset" styleClass="btn"/>                      
+                                    <p:commandButton value="Guardar" id="btn_guardar" actionListener="#{resp.AgregarRepuesto()}" icon="ui-icon-disk" ajax="false" styleClass="btn"/> 
+                                    
+                                </h:panelGrid>
+                            </p:panel>
+                            <p:outputPanel id="repuestolist">
+                                <p:dataTable value="#{resp.ListarRepuestos()}" var="res" id="repuestoTable">
+                                    <p:column headerText="Codigo">
+                                        <h:outputText value="#{res.codigoprov}" />
+                                    </p:column>
+                                    <p:column headerText="Tipo Repuesto">
+                                        <h:outputText value="#{res.tiposrepuesto.tipo}" />
+                                    </p:column>
+                                    <p:column headerText="Proveedor">
+                                        <h:outputText value="#{res.terceros.razonsocial}" />
+                                    </p:column>
+                                    <p:column headerText="Tipo Calidad">
+                                        <h:outputText value="#{res.tiposcalidad.tipo}" />
+                                    </p:column>    
+                                    <p:column headerText="Precio">
+                                        <h:outputText value="#{res.precio}" />
+                                    </p:column>
+                                    <p:column headerText="Origen">
+                                        <h:outputText value="#{res.origen}" />
+                                    </p:column>
+                                </p:dataTable>
+                            </p:outputPanel>
+                        </h:form>
+                    </center>
+                </h:form>
+            </ui:define>                                   
+        </ui:composition>
+    </h:body>
+</html>

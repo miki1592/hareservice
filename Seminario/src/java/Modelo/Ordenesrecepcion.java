@@ -16,22 +16,32 @@ public class Ordenesrecepcion  implements java.io.Serializable {
      private Terceros terceros;
      private String detalle;
      private Date fecha;
+     private String descripcion;
+     private String adjunto;
+     private Integer numero;
      private Set<Presupuestos> presupuestoses = new HashSet<Presupuestos>(0);
 
     public Ordenesrecepcion() {
+        terceros=new Terceros();
     }
 
 	
-    public Ordenesrecepcion(Terceros terceros, String detalle, Date fecha) {
+    public Ordenesrecepcion(Terceros terceros, String detalle, Date fecha,String descripcion,String adjunto,int numero) {
         this.terceros = terceros;
         this.detalle = detalle;
         this.fecha = fecha;
+        this.descripcion=descripcion;
+        this.adjunto=adjunto;
+        this.numero=numero;
     }
-    public Ordenesrecepcion(Terceros terceros, String detalle, Date fecha, Set<Presupuestos> presupuestoses) {
+    public Ordenesrecepcion(Terceros terceros, String detalle, Date fecha,String descripcion,String adjunto,int numero,Set<Presupuestos> presupuestoses) {
        this.terceros = terceros;
        this.detalle = detalle;
        this.fecha = fecha;
+       this.descripcion=descripcion;
+       this.adjunto=adjunto;
        this.presupuestoses = presupuestoses;
+       this.numero=numero;
     }
    
     public Integer getIdordenrecep() {
@@ -70,8 +80,29 @@ public class Ordenesrecepcion  implements java.io.Serializable {
         this.presupuestoses = presupuestoses;
     }
 
+    public String getDescripcion() {
+        return descripcion;
+    }
 
+    public void setDescripcion(String descripcion) {
+        this.descripcion = descripcion;
+    }
 
+    public String getAdjunto() {
+        return adjunto;
+    }
+
+    public void setAdjunto(String adjunto) {
+        this.adjunto = adjunto;
+    }
+
+    public Integer getNumero() {
+        return numero;
+    }
+
+    public void setNumero(Integer numero) {
+        this.numero = numero;
+    }
 
 }
 

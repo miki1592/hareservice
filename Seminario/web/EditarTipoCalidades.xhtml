@@ -10,7 +10,7 @@ and open the template in the editor.
       xmlns:f="http://java.sun.com/jsf/core"
       xmlns:p="http://primefaces.org/ui">
     <h:head>
-        <title>Hare Service</title>
+        <title>Editar Tipos de Calidades</title>
         <style>
             body 
             {
@@ -50,7 +50,24 @@ and open the template in the editor.
                 <h:form rendered="#{user.logeado==true and user.oper_logeado.getTiposoperario().getIdtipooperario()== 2}">
                     <center>
                         <br/>
-                        <h1>Bienvenido #{user.oper_logeado.nombre} al Sistema Hare Service</h1>
+                        <h:form id="formsel" rendered="#{tipocal.editar.idtipocalidad==0}">
+                            <br/>
+                            <h1 align="center"> Seleccione tipo de calidad que desea editar. </h1>
+                        </h:form>
+                        <h:form id="form" rendered="#{tipocal.editar.idtipocalidad!=0}">
+                            <p:growl id="msgs" />
+                            <p:panel header="Editar Tipo de Calidad" style="margin-bottom:20px">
+                                <p:messages globalOnly="true"/>
+                                <h:panelGrid columns="2" cellpadding="5">
+                                    <h:outputLabel value="Tipo : *" for="txt_tipo"></h:outputLabel>
+                                    <p:inputText id="txt_tipo" value="#{tipocal.editar.tipo}" label="Tipo" required="true" requiredMessage="Ingrese tipo"></p:inputText>
+                                    
+                                </h:panelGrid>
+                            </p:panel>    
+                            <center>
+                                <p:commandButton value="Editar" id="withIcon" action="#{tipocal.ActualizarTipoCalidad()}" icon="ui-icon-pencil" ajax="false" styleClass="btn"/>
+                            </center>
+                        </h:form>
                     </center>
                 </h:form>
             </ui:define>                                   

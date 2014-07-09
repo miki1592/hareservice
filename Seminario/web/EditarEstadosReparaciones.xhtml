@@ -10,7 +10,7 @@ and open the template in the editor.
       xmlns:f="http://java.sun.com/jsf/core"
       xmlns:p="http://primefaces.org/ui">
     <h:head>
-        <title>Hare Service</title>
+        <title>Editar Estados de Reparaciones</title>
         <style>
             body 
             {
@@ -50,7 +50,24 @@ and open the template in the editor.
                 <h:form rendered="#{user.logeado==true and user.oper_logeado.getTiposoperario().getIdtipooperario()== 2}">
                     <center>
                         <br/>
-                        <h1>Bienvenido #{user.oper_logeado.nombre} al Sistema Hare Service</h1>
+                        <h:form id="formsel" rendered="#{estad.editar.idestado==0}">
+                            <br/>
+                            <h1 align="center"> Seleccione estado de reparacion que desea editar. </h1>
+                        </h:form>
+                        <h:form id="form" rendered="#{estad.editar.idestado!=0}">
+                            <p:growl id="msgs" />
+                            <p:panel header="Editar Estado de Reparacion" style="margin-bottom:20px">
+                                <p:messages globalOnly="true"/>
+                                <h:panelGrid columns="2" cellpadding="5">
+                                    <h:outputLabel value="Estado : *" for="txt_est"></h:outputLabel>
+                                    <p:inputText id="txt_est" value="#{estad.editar.estado}" label="Estado" required="true" requiredMessage="Ingrese estado"></p:inputText>
+                                    
+                                </h:panelGrid>
+                            </p:panel>    
+                            <center>
+                                <p:commandButton value="Editar" id="withIcon" action="#{estad.ActualizarEstadoReparacion()}" icon="ui-icon-pencil" ajax="false" styleClass="btn"/>
+                            </center>
+                        </h:form>
                     </center>
                 </h:form>
             </ui:define>                                   

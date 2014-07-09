@@ -3,8 +3,7 @@
  * and open the template in the editor.
  */
 package Daos;
-
-import Modelo.Terceros;
+import Modelo.Presupuestos;
 import java.util.ArrayList;
 import org.hibernate.HibernateException;
 import org.hibernate.Query;
@@ -15,7 +14,7 @@ import org.hibernate.Transaction;
  *
  * @author romero
  */
-public class DaoProveedores implements IDAO<Terceros>
+public class DaoPresupuestos implements IDAO<Presupuestos>
 {
     private Session session;
     private Transaction tx;
@@ -33,7 +32,7 @@ public class DaoProveedores implements IDAO<Terceros>
     } 
     
     @Override
-    public synchronized int Agregar(Terceros entidad) 
+    public synchronized int Agregar(Presupuestos entidad) 
     {
         int id = 0;
 
@@ -58,7 +57,7 @@ public class DaoProveedores implements IDAO<Terceros>
     }
 
     @Override
-    public synchronized void Actualizar(Terceros entidad) 
+    public synchronized void Actualizar(Presupuestos entidad) 
     {
         try 
         { 
@@ -78,7 +77,7 @@ public class DaoProveedores implements IDAO<Terceros>
     }
 
     @Override
-    public synchronized void Eliminar(Terceros entidad) 
+    public synchronized void Eliminar(Presupuestos entidad) 
     {
         try 
         { 
@@ -98,107 +97,25 @@ public class DaoProveedores implements IDAO<Terceros>
     }
 
     @Override
-    public synchronized Terceros Get(String atributo) 
+    public synchronized Presupuestos Get(String atributo) 
     {
-        Terceros cliente=null;
-        
-        try 
-        { 
-            iniciaOperacion(); 
-
-            Query query=session.createQuery("FROM Terceros p WHERE p.email=:mail AND p.esproveedor=1");
-
-            query.setString("mail",atributo);
-
-            cliente=(Terceros)query.uniqueResult();
-        }
-        catch(HibernateException ex)
-        {
-            System.out.println("Ha ocurrido una excepcion: " + ex.getMessage());
-            
-            manejaExcepcion(ex);
-            
-        }
-        finally 
-        { 
-            session.close(); 
-        }  
-
-        return cliente;
+        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
     }
-    
-    public synchronized Terceros GetByRazon(String raz)
-    {
-        Terceros cliente=null;
-        
-        try 
-        { 
-            iniciaOperacion(); 
 
-            Query query=session.createQuery("FROM Terceros p WHERE p.razonsocial=:rs AND p.esproveedor=1");
-
-            query.setString("rs",raz);
-
-            cliente=(Terceros)query.uniqueResult();
-        }
-        catch(HibernateException ex)
-        {
-            System.out.println("Ha ocurrido una excepcion: " + ex.getMessage());
-            
-            manejaExcepcion(ex);
-            
-        }
-        finally 
-        { 
-            session.close(); 
-        }  
-
-        return cliente;
-    }
-    
-    public synchronized Terceros GetByCUIT(int cuit)
-    {
-        Terceros cliente=null;
-        
-        try 
-        { 
-            iniciaOperacion(); 
-
-            Query query=session.createQuery("FROM Terceros p WHERE p.cuit=:cu AND p.esproveedor=1");
-
-            query.setInteger("cu",cuit);
-
-            cliente=(Terceros)query.uniqueResult();
-        }
-        catch(HibernateException ex)
-        {
-            System.out.println("Ha ocurrido una excepcion: " + ex.getMessage());
-            
-            manejaExcepcion(ex);
-            
-        }
-        finally 
-        { 
-            session.close(); 
-        }  
-
-        return cliente;
-    }
-    
     @Override
-    public synchronized Terceros Get(int Atributo)
+    public synchronized Presupuestos Get(int Atributo)
     {
-        Terceros cliente=null;
+        Presupuestos pre=null;
         
         try 
         { 
             iniciaOperacion(); 
 
-            Query query=session.createQuery("FROM Terceros p WHERE p.idtercero=:id");
+            Query query=session.createQuery("FROM Presupuestos p WHERE p.idpresupuesto=:id");
 
             query.setParameter("id",Atributo);
 
-            cliente=(Terceros)query.uniqueResult();
+            pre=(Presupuestos)query.uniqueResult();
         }
         catch(HibernateException ex)
         {
@@ -212,7 +129,7 @@ public class DaoProveedores implements IDAO<Terceros>
             session.close(); 
         }  
 
-        return cliente;
+        return pre;
     }
 
     @Override
@@ -224,7 +141,7 @@ public class DaoProveedores implements IDAO<Terceros>
         { 
             iniciaOperacion(); 
 
-            Query query=session.createQuery("FROM Terceros p WHERE p.esproveedor=1");
+            Query query=session.createQuery("FROM Presupuestos p");
 
             Lista=(ArrayList)query.list();
         }
@@ -242,5 +159,4 @@ public class DaoProveedores implements IDAO<Terceros>
 
         return Lista; 
     }
-    
 }

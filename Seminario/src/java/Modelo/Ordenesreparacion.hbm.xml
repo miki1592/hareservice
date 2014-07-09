@@ -26,6 +26,12 @@
         <property name="precio" type="double">
             <column name="precio" precision="22" scale="0" not-null="true" />
         </property>
+        <property name="descripcion" type="string">
+            <column name="descripcion" length="65535" not-null="true"/>
+        </property>
+        <property name="numero" type="int">
+            <column name="numero" not-null="true"/>
+        </property>
         <set name="tareases" inverse="true">
             <key>
                 <column name="ordenrep_id" />

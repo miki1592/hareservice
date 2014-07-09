@@ -3,8 +3,7 @@
  * and open the template in the editor.
  */
 package Daos;
-
-import Modelo.Terceros;
+import Modelo.Repuestos;
 import java.util.ArrayList;
 import org.hibernate.HibernateException;
 import org.hibernate.Query;
@@ -15,7 +14,7 @@ import org.hibernate.Transaction;
  *
  * @author romero
  */
-public class DaoProveedores implements IDAO<Terceros>
+public class DaoRepuestos implements IDAO<Repuestos>
 {
     private Session session;
     private Transaction tx;
@@ -30,18 +29,18 @@ public class DaoProveedores implements IDAO<Terceros>
     { 
         tx.rollback(); 
         throw new HibernateException("Ocurrió un error en la capa de acceso a datos", he); 
-    } 
-    
+    }  
+
     @Override
-    public synchronized int Agregar(Terceros entidad) 
+    public synchronized int Agregar(Repuestos entidad) 
     {
-        int id = 0;
+        int id = 0;  
 
         try 
-        {
-            iniciaOperacion();
-            id = (Integer) session.save(entidad);
-            tx.commit();
+        { 
+            iniciaOperacion(); 
+            id = (Integer)session.save(entidad); 
+            tx.commit(); 
         }
         catch(HibernateException ex) 
         { 
@@ -58,14 +57,14 @@ public class DaoProveedores implements IDAO<Terceros>
     }
 
     @Override
-    public synchronized void Actualizar(Terceros entidad) 
+    public synchronized void Actualizar(Repuestos entidad) 
     {
         try 
         { 
             iniciaOperacion(); 
             session.update(entidad); 
             tx.commit(); 
-        } 
+        }
         catch (HibernateException ex) 
         { 
             System.out.println("Ha ocurrido una excepcion: " + ex.getMessage());
@@ -74,18 +73,18 @@ public class DaoProveedores implements IDAO<Terceros>
         finally 
         { 
             session.close(); 
-        }  
+        } 
     }
 
     @Override
-    public synchronized void Eliminar(Terceros entidad) 
+    public synchronized void Eliminar(Repuestos entidad) 
     {
         try 
         { 
             iniciaOperacion(); 
             session.delete(entidad); 
             tx.commit(); 
-        } 
+        }
         catch (HibernateException ex) 
         { 
             System.out.println("Ha ocurrido una excepcion: " + ex.getMessage());
@@ -94,23 +93,23 @@ public class DaoProveedores implements IDAO<Terceros>
         finally 
         { 
             session.close(); 
-        }  
+        } 
     }
 
     @Override
-    public synchronized Terceros Get(String atributo) 
+    public synchronized Repuestos Get(String atributo) 
     {
-        Terceros cliente=null;
+        Repuestos r=null;
         
         try 
         { 
             iniciaOperacion(); 
 
-            Query query=session.createQuery("FROM Terceros p WHERE p.email=:mail AND p.esproveedor=1");
+            Query query=session.createQuery("FROM Repuestos r WHERE r.codigoprov=:cod");
 
-            query.setString("mail",atributo);
+            query.setString("cod",atributo);
 
-            cliente=(Terceros)query.uniqueResult();
+            r=(Repuestos)query.uniqueResult();
         }
         catch(HibernateException ex)
         {
@@ -124,81 +123,23 @@ public class DaoProveedores implements IDAO<Terceros>
             session.close(); 
         }  
 
-        return cliente;
+        return r;
     }
-    
-    public synchronized Terceros GetByRazon(String raz)
-    {
-        Terceros cliente=null;
-        
-        try 
-        { 
-            iniciaOperacion(); 
 
-            Query query=session.createQuery("FROM Terceros p WHERE p.razonsocial=:rs AND p.esproveedor=1");
-
-            query.setString("rs",raz);
-
-            cliente=(Terceros)query.uniqueResult();
-        }
-        catch(HibernateException ex)
-        {
-            System.out.println("Ha ocurrido una excepcion: " + ex.getMessage());
-            
-            manejaExcepcion(ex);
-            
-        }
-        finally 
-        { 
-            session.close(); 
-        }  
-
-        return cliente;
-    }
-    
-    public synchronized Terceros GetByCUIT(int cuit)
-    {
-        Terceros cliente=null;
-        
-        try 
-        { 
-            iniciaOperacion(); 
-
-            Query query=session.createQuery("FROM Terceros p WHERE p.cuit=:cu AND p.esproveedor=1");
-
-            query.setInteger("cu",cuit);
-
-            cliente=(Terceros)query.uniqueResult();
-        }
-        catch(HibernateException ex)
-        {
-            System.out.println("Ha ocurrido una excepcion: " + ex.getMessage());
-            
-            manejaExcepcion(ex);
-            
-        }
-        finally 
-        { 
-            session.close(); 
-        }  
-
-        return cliente;
-    }
-    
     @Override
-    public synchronized Terceros Get(int Atributo)
+    public synchronized Repuestos Get(int Atributo)
     {
-        Terceros cliente=null;
+        Repuestos r=null;
         
         try 
         { 
             iniciaOperacion(); 
 
-            Query query=session.createQuery("FROM Terceros p WHERE p.idtercero=:id");
+            Query query=session.createQuery("FROM Repuestos r WHERE r.idrepuesto=:id");
 
             query.setParameter("id",Atributo);
 
-            cliente=(Terceros)query.uniqueResult();
+            r=(Repuestos)query.uniqueResult();
         }
         catch(HibernateException ex)
         {
@@ -212,11 +153,11 @@ public class DaoProveedores implements IDAO<Terceros>
             session.close(); 
         }  
 
-        return cliente;
+        return r;
     }
 
     @Override
-    public synchronized ArrayList Listar() 
+    public synchronized ArrayList Listar()
     {
         ArrayList Lista=new ArrayList();  
         
@@ -224,7 +165,7 @@ public class DaoProveedores implements IDAO<Terceros>
         { 
             iniciaOperacion(); 
 
-            Query query=session.createQuery("FROM Terceros p WHERE p.esproveedor=1");
+            Query query=session.createQuery("FROM Repuestos r");
 
             Lista=(ArrayList)query.list();
         }
@@ -240,7 +181,8 @@ public class DaoProveedores implements IDAO<Terceros>
             session.close(); 
         }  
 
-        return Lista; 
-    }
+        return Lista;
+    }   
     
 }
+

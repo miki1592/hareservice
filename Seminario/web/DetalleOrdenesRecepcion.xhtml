@@ -10,7 +10,7 @@ and open the template in the editor.
       xmlns:f="http://java.sun.com/jsf/core"
       xmlns:p="http://primefaces.org/ui">
     <h:head>
-        <title>Hare Service</title>
+        <title>Detalles Ordenes de Recepcion</title>
         <style>
             body 
             {
@@ -50,7 +50,22 @@ and open the template in the editor.
                 <h:form rendered="#{user.logeado==true and user.oper_logeado.getTiposoperario().getIdtipooperario()== 2}">
                     <center>
                         <br/>
-                        <h1>Bienvenido #{user.oper_logeado.nombre} al Sistema Hare Service</h1>
+                        <h:form id="form">
+                            <p:growl id="msgs" />
+                            <p:panel header="Detalles de Orden de Recepcion" style="margin-bottom:20px">
+                                <h:panelGrid columns="2" cellpadding="5">
+                                    <h:outputLabel value="Descripcion : " for="txt_descripcion"></h:outputLabel>
+                                    <p:inputTextarea rows="2" cols="60" id="txt_descripcion" value="#{ordenrecep.detallada.descripcion}" readonly="true" label="Descripcion"></p:inputTextarea>                       
+                                    
+                                    <h:outputLabel value="Detalle : " for="txt_detalle"></h:outputLabel>
+                                    <p:inputTextarea rows="6" cols="60" id="txt_detalle" value="#{ordenrecep.detallada.detalle}" readonly="true" label="Detalle"></p:inputTextarea>
+                                    
+                                    <h:outputLabel value="Objetos Adjuntos : " for="txt_adjunto"></h:outputLabel>
+                                    <p:inputTextarea rows="2" cols="60" id="txt_adjunto" value="#{ordenrecep.detallada.adjunto}" readonly="true" label="Adjunto"></p:inputTextarea>
+
+                                </h:panelGrid>                 
+                            </p:panel>                         
+                        </h:form>
                     </center>
                 </h:form>
             </ui:define>                                   

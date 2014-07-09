@@ -13,7 +13,6 @@ public class Tareas  implements java.io.Serializable {
 
      private Integer idtarea;
      private Ordenesreparacion ordenesreparacion;
-     private Presupuestos presupuestos;
      private Operarios operarios;
      private String detalle;
      private double precio;
@@ -24,15 +23,13 @@ public class Tareas  implements java.io.Serializable {
     }
 
 	
-    public Tareas(Presupuestos presupuestos, String detalle, double precio, boolean esobligatoria) {
-        this.presupuestos = presupuestos;
+    public Tareas(String detalle, double precio, boolean esobligatoria) {
         this.detalle = detalle;
         this.precio = precio;
         this.esobligatoria = esobligatoria;
     }
-    public Tareas(Ordenesreparacion ordenesreparacion, Presupuestos presupuestos, Operarios operarios, String detalle, double precio, boolean esobligatoria, Set<Listasrepuestos> listasrepuestoses) {
+    public Tareas(Ordenesreparacion ordenesreparacion, Operarios operarios, String detalle, double precio, boolean esobligatoria, Set<Listasrepuestos> listasrepuestoses) {
        this.ordenesreparacion = ordenesreparacion;
-       this.presupuestos = presupuestos;
        this.operarios = operarios;
        this.detalle = detalle;
        this.precio = precio;
@@ -53,13 +50,6 @@ public class Tareas  implements java.io.Serializable {
     
     public void setOrdenesreparacion(Ordenesreparacion ordenesreparacion) {
         this.ordenesreparacion = ordenesreparacion;
-    }
-    public Presupuestos getPresupuestos() {
-        return this.presupuestos;
-    }
-    
-    public void setPresupuestos(Presupuestos presupuestos) {
-        this.presupuestos = presupuestos;
     }
     public Operarios getOperarios() {
         return this.operarios;

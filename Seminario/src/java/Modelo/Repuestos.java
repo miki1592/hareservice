@@ -21,6 +21,9 @@ public class Repuestos  implements java.io.Serializable {
      private Set<Listasrepuestos> listasrepuestoses = new HashSet<Listasrepuestos>(0);
 
     public Repuestos() {
+        terceros=new Terceros();
+        tiposcalidad=new Tiposcalidad();
+        tiposrepuesto=new Tiposrepuesto();
     }
 
 	

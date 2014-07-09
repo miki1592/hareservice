@@ -1,0 +1,141 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!--
+To change this template, choose Tools | Templates
+and open the template in the editor.
+-->
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:h="http://java.sun.com/jsf/html"
+      xmlns:ui="http://java.sun.com/jsf/facelets"
+      xmlns:f="http://java.sun.com/jsf/core"
+      xmlns:p="http://primefaces.org/ui">
+    <h:head>
+        <title>Agregar Clientes</title>
+        <style>
+            body 
+            {
+                background-color: grey;
+            }
+            h1
+            {
+                text-align: center;
+                font-size: x-large;
+                background-color: lightsalmon;
+            }
+            h2
+            {
+                text-align: center;
+                font-size: x-large;
+                background-color: coral;
+            }
+            #MiTabla
+            {
+                background-color: cadetblue;
+                text-align:center;
+                font-size:large;
+                border: black;
+            }
+            #MiTabla2
+            {
+                background-color: lightcoral;
+                text-align:center;
+                font-size:large;
+                border: black;
+            }
+        </style>
+    </h:head>
+    <h:body>
+        <ui:composition template="MenuAdmin.xhtml">
+            <ui:define name="contenido" >
+                <h:form rendered="#{user.logeado==true and user.oper_logeado.getTiposoperario().getIdtipooperario()== 2}">
+                    <center>
+                        <br/>
+                        <h:form id="form">
+                            <p:growl id="msgs" />
+                            <p:panel header="Crear un nuevo Cliente" style="margin-bottom:20px">
+                                <h:panelGrid columns="2" cellpadding="5">
+                                    <h:outputLabel value="Nombre : *" for="txt_name"></h:outputLabel>
+                                    <p:inputText id="txt_name" value="#{client.agregar.nombre}" label="Nombre" required="true" requiredMessage="Ingrese nombre"></p:inputText>
+
+                                    <h:outputLabel value="Apellido : *" for="txt_ape"></h:outputLabel>
+                                    <p:inputText id="txt_ape" value="#{client.agregar.apellido}" label="Apellido" required="true" requiredMessage="Ingrese apellido"></p:inputText>
+                                    
+                                    <h:outputLabel value="CUIT: " for="txt_cuit"></h:outputLabel>
+                                    <p:inputMask mask="99-99999999-99" id="txt_cuit" value="#{client.agregar.cuit}" label="Cuit"></p:inputMask>
+                                    
+                                    <h:outputLabel value="DNI: " for="txt_dni"></h:outputLabel>
+                                    <p:inputText id="txt_dni" value="#{client.agregar.dni}" label="Dni"></p:inputText>
+
+                                    <h:outputLabel value="Email : *" for="txt_email"></h:outputLabel>
+                                    <p:inputText id="txt_email" value="#{client.agregar.email}" label="Email"
+                                                 validatorMessage="Formato de email incorrecto" required="true" requiredMessage="Ingrese email">
+                                        <f:validateRegex pattern="^[_A-Za-z0-9-\+]+(\.[_A-Za-z0-9-]+)*@[A-Za-z0-9-]+(\.[A-Za-z0-9]+)*(\.[A-Za-z]{2,})$" />
+                                    </p:inputText>
+
+                                    <h:outputLabel value="Telefono: " for="txt_tel"></h:outputLabel>
+                                    <p:inputText id="txt_tel" value="#{client.agregar.telefono}" label="Tel"></p:inputText>
+                                    
+                                    <h:outputLabel value="Celular: " for="txt_cel"></h:outputLabel>
+                                    <p:inputText id="txt_cel" value="#{client.agregar.telefonomovil}" label="Cel"></p:inputText>
+                                    
+                                    <h:outputLabel value="Calle: " for="txt_calle"></h:outputLabel>
+                                    <p:inputText id="txt_calle" value="#{client.agregar.calle}" label="Calle"></p:inputText>
+                                    
+                                    <h:outputLabel value="Altura: " for="txt_altura"></h:outputLabel>
+                                    <p:inputText id="txt_altura" value="#{client.agregar.altura}" label="Altura"></p:inputText>
+                                    
+                                    <h:outputLabel value="Departamento: " for="txt_dpto"></h:outputLabel>
+                                    <p:inputText id="txt_dpto" value="#{client.agregar.dpto}" label="Dpto"></p:inputText>
+
+                                    <h:outputLabel value="Usuario: *" for="txt_user"></h:outputLabel>
+                                    <p:inputText id="txt_user" value="#{client.agregar.usuario}" label="Usuario" required="true" requiredMessage="Ingrese usuario"></p:inputText>
+                                    
+                                    <h:outputLabel value="Contraseña: *" for="txt_pass"></h:outputLabel>
+                                    <p:inputText id="txt_pass" value="#{client.agregar.contraseña}" label="Contraseña" required="true" requiredMessage="Ingrese contraseña"></p:inputText>
+                                    
+                                    <p:commandButton id="btn_reset" value="Limpiar" type="reset" styleClass="btn"/>                      
+                                    <p:commandButton value="Guardar" id="btn_guardar" actionListener="#{client.AgregarCliente()}" icon="ui-icon-disk" ajax="false" styleClass="btn"/> 
+                                    
+                                </h:panelGrid>
+                            </p:panel>
+                            <p:outputPanel id="clienteslist">
+                            <p:dataTable value="#{client.ListarClientes()}" var="cli" id="clientTable">                               
+                                <p:column headerText="Nombre">
+                                    <h:outputText value="#{cli.nombre}" />
+                                </p:column>
+                                <p:column headerText="Apellido">
+                                    <h:outputText value="#{cli.apellido}" />
+                                </p:column>
+                                <p:column headerText="CUIT">
+                                    <h:outputText value="#{cli.cuit}" />
+                                </p:column>
+                                <p:column headerText="DNI">
+                                    <h:outputText value="#{cli.dni}" />
+                                </p:column>
+                                <p:column headerText="Email">
+                                    <h:outputText value="#{cli.email}" />
+                                </p:column>
+                                <p:column headerText="Telefono">
+                                    <h:outputText value="#{cli.telefono}" />
+                                </p:column>
+                                <p:column headerText="Celular">
+                                    <h:outputText value="#{cli.telefonomovil}" />
+                                </p:column>
+                                <p:column headerText="Calle">
+                                    <h:outputText value="#{cli.calle}" />
+                                </p:column>
+                                <p:column headerText="Altura">
+                                    <h:outputText value="#{cli.altura}" />
+                                </p:column>
+                                <p:column headerText="Departamento">
+                                    <h:outputText value="#{cli.dpto}" />
+                                </p:column>
+                            </p:dataTable>
+                        </p:outputPanel>
+                        </h:form>
+                    </center>
+                </h:form>
+            </ui:define>                                   
+        </ui:composition>
+    </h:body>
+</html>

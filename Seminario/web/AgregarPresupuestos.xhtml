@@ -1,0 +1,77 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!--
+To change this template, choose Tools | Templates
+and open the template in the editor.
+-->
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:h="http://java.sun.com/jsf/html"
+      xmlns:ui="http://java.sun.com/jsf/facelets"
+      xmlns:f="http://java.sun.com/jsf/core"
+      xmlns:p="http://primefaces.org/ui">
+    <h:head>
+        <title>Agregar Presupuestos</title>
+        <style>
+            body 
+            {
+                background-color: grey;
+            }
+            h1
+            {
+                text-align: center;
+                font-size: x-large;
+                background-color: lightsalmon;
+            }
+            h2
+            {
+                text-align: center;
+                font-size: x-large;
+                background-color: coral;
+            }
+            #MiTabla
+            {
+                background-color: cadetblue;
+                text-align:center;
+                font-size:large;
+                border: black;
+            }
+            #MiTabla2
+            {
+                background-color: lightcoral;
+                text-align:center;
+                font-size:large;
+                border: black;
+            }
+        </style>
+    </h:head>
+    <h:body>
+        <ui:composition template="MenuAdmin.xhtml">
+            <ui:define name="contenido" >
+                <h:form rendered="#{user.logeado==true and user.oper_logeado.getTiposoperario().getIdtipooperario()== 2}">
+                    <center>
+                        <br/>
+                        <h:form id="form">
+                            <p:growl id="msgs" />
+                            <p:panel header="Crear un nuevo Presupuesto" style="margin-bottom:20px">
+                                <h:panelGrid columns="2" cellpadding="5">
+                                    <h:outputLabel value="Tareas : *" for="txt_tareas"></h:outputLabel>
+                                    <p:inputTextarea rows="6" cols="60" id="txt_tareas" value="#{presu.agregar.tareas}" label="Tareas" required="true" requiredMessage="Ingrese tareas"></p:inputTextarea>                       
+                                    
+                                    <h:outputLabel value="Tareas Opcionales : " for="txt_opcional"></h:outputLabel>
+                                    <p:inputTextarea rows="6" cols="60" id="txt_opcional" value="#{presu.agregar.opcional}" label="Opcional"></p:inputTextarea>
+                                    
+                                    <h:outputLabel value="Precio Estimado :$ *" for="txt_precioe"></h:outputLabel>
+                                    <p:inputText id="txt_precioe" value="#{presu.agregar.precioestimado}" label="Adjunto" required="true" requiredMessage="Ingrese precio estimado"></p:inputText>
+                                    
+                                    <p:commandButton id="btn_reset" value="Limpiar" type="reset" styleClass="btn"/>       
+
+                                    <p:commandButton value="Guardar" id="btn_guardar" action="#{presu.AgregarPresupuesto()}" icon="ui-icon-disk" ajax="false" styleClass="btn"/> 
+                                </h:panelGrid>                 
+                            </p:panel>                                                
+                        </h:form>
+                    </center>
+                </h:form>
+            </ui:define>                                   
+        </ui:composition>
+    </h:body>
+</html>

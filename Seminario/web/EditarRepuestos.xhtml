@@ -1,0 +1,100 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!--
+To change this template, choose Tools | Templates
+and open the template in the editor.
+-->
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:h="http://java.sun.com/jsf/html"
+      xmlns:ui="http://java.sun.com/jsf/facelets"
+      xmlns:f="http://java.sun.com/jsf/core"
+      xmlns:p="http://primefaces.org/ui">
+    <h:head>
+        <title>Editar Repuestos</title>
+        <style>
+            body 
+            {
+                background-color: grey;
+            }
+            h1
+            {
+                text-align: center;
+                font-size: x-large;
+                background-color: lightsalmon;
+            }
+            h2
+            {
+                text-align: center;
+                font-size: x-large;
+                background-color: coral;
+            }
+            #MiTabla
+            {
+                background-color: cadetblue;
+                text-align:center;
+                font-size:large;
+                border: black;
+            }
+            #MiTabla2
+            {
+                background-color: lightcoral;
+                text-align:center;
+                font-size:large;
+                border: black;
+            }
+        </style>
+    </h:head>
+    <h:body>
+        <ui:composition template="MenuAdmin.xhtml">
+            <ui:define name="contenido" >
+                <h:form rendered="#{user.logeado==true and user.oper_logeado.getTiposoperario().getIdtipooperario()== 2}">
+                    <center>
+                        <br/>
+                        <h:form id="formsel" rendered="#{resp.editar.idrepuesto==0}">
+                            <br/>
+                            <h1 align="center"> Seleccione repuesto que desea editar. </h1>
+                        </h:form>
+                        <h:form id="form" rendered="#{resp.editar.idrepuesto!=0}">
+                            <p:growl id="msgs" />
+                            <p:panel header="Editar Repuesto" style="margin-bottom:20px">
+                                <p:messages globalOnly="true"/>
+                                <h:panelGrid columns="2" cellpadding="5">
+                                    <h:outputLabel value="Codigo : " for="txt_cod"></h:outputLabel>
+                                    <p:inputText id="txt_cod" value="#{resp.editar.codigoprov}" label="Codigo"></p:inputText>
+
+                                    <h:outputLabel value="Tipo de Repuesto : *" for="txt_tipores"></h:outputLabel>
+                                    <p:selectOneMenu id="txt_tipores" value="#{resp.editar.tiposrepuesto.idtiporepuesto}" requiredMessage="Seleccione tipo de repuesto" required="true">   
+                                        <f:selectItem itemLabel="Seleccione Tipo de Repuesto" itemValue=""/>
+                                        <f:selectItems value="#{resp.listaTRepuestos}" var="tires" itemLabel="#{tires.tipo}" itemValue="#{tires.idtiporepuesto}"/>  
+                                    </p:selectOneMenu>
+
+                                    <h:outputLabel value="Proveedor : *" for="txt_prov"></h:outputLabel>
+                                    <p:selectOneMenu id="txt_prov" value="#{resp.editar.terceros.idtercero}" requiredMessage="Seleccione proveedor" required="true">   
+                                        <f:selectItem itemLabel="Seleccione Proveedor" itemValue=""/>
+                                        <f:selectItems value="#{resp.listaProveedores}" var="prov" itemLabel="#{prov.razonsocial}" itemValue="#{prov.idtercero}"/>  
+                                    </p:selectOneMenu>
+
+                                    <h:outputLabel value="Tipo de Calidad : *" for="txt_tcal"></h:outputLabel>
+                                    <p:selectOneMenu id="txt_tcal" value="#{resp.editar.tiposcalidad.idtipocalidad}" requiredMessage="Seleccione tipo de calidad" required="true">   
+                                        <f:selectItem itemLabel="Seleccione Tipo de Calidad" itemValue=""/>
+                                        <f:selectItems value="#{resp.listaTCalidad}" var="tcal" itemLabel="#{tcal.tipo}" itemValue="#{tcal.idtipocalidad}"/>  
+                                    </p:selectOneMenu>
+
+                                    <h:outputLabel value="Precio : *" for="txt_precio"></h:outputLabel>
+                                    <p:inputText id="txt_precio" value="#{resp.editar.precio}" label="Precio" required="true" requiredMessage="Ingrese precio"></p:inputText>
+
+                                    <h:outputLabel value="Origen : " for="txt_origen"></h:outputLabel>
+                                    <p:inputText id="txt_origen" value="#{resp.editar.origen}" label="Origen"></p:inputText>                                                             
+                                </h:panelGrid>
+                            </p:panel>    
+                            <center>
+                                <p:commandButton value="Editar" id="withIcon" action="#{resp.ActualizarRepuesto()}" icon="ui-icon-pencil" ajax="false" styleClass="btn"/>
+                            </center>
+                        </h:form>
+                    </center>
+                </h:form>
+            </ui:define>                                   
+        </ui:composition>
+    </h:body>
+</html>
+

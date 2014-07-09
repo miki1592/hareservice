@@ -14,13 +14,15 @@ and open the template in the editor.
         <style>
             body 
             {
-                background-color: grey;
+                background-color: #EAEDEA;
+                font: 14px/18px helvetica,arial,"nimbus sans l",sans-serif;
             }
             h1
             {
                 text-align: center;
                 font-size: x-large;
-                background-color: lightsalmon;
+                background-color: #EAEDEA;
+                color: black;
             }
             h2
             {
@@ -42,6 +44,54 @@ and open the template in the editor.
                 font-size:large;
                 border: black;
             }
+            .ui-menu 
+            { 
+                background: #000000 !important;      
+            }
+            .ui-widget-content .ui-menu-item a.ui-menu-item-label {
+                color: #000000;
+            }
+            .ui-widget-content a {
+                color: #FFFFFF;
+            }
+            .ui-menu .ui-state-hover,
+            .ui-menu .ui-state-active 
+            {            
+                background: #FFFFFF !important;
+                color: #000000 !important;
+            }
+            li
+            {
+                background: #000000 !important;
+                color: #FFFFFF !important;
+            }
+            ul
+            {
+                background: #000000 !important;
+                color: #FFFFFF !important;
+            }
+            .ui-datatable, .ui-datatable-even {
+                background: #0FEB4A !important;
+                color: black !important;
+                border-color: #000000 !important;
+            }
+            th
+            {
+                color: #000000 !important;
+                background-color: #0FEB4A !important;
+                border-color: #000000 !important;
+            }
+            td
+            {
+                color: #000000 !important;
+                background-color: #FFFFFF !important;
+                border-color: #0FEB4A !important;
+            }
+            .btn
+            {
+                color: #000000 !important;
+                background-color: #0FEB4A !important;
+            }
         </style>
     </h:head>
     <h:body>
@@ -52,39 +102,67 @@ and open the template in the editor.
                 <h:commandLink value="Logueo" action="#{user.Logout()}" style="color: blue; font-family: cursive; font-size: x-large "/>
             </center>
         </h:form>        
-        <h:form rendered="#{user.oper_logeado.getTiposoperario().getIdtipooperario()!= 2}">
+        <h:form rendered="#{user.oper_logeado.getTiposoperario().getIdtipooperario()!=2}">
             <h1 align="center"> Usted no esta logueado como administrador... </h1>  
             <br/>
             <center>
-            <h:commandLink value="Logueo" action="#{user.Logout()}" style="color: blue; font-family: cursive; font-size: x-large "/>
+                <h:commandLink value="Logueo" action="#{user.Logout()}" style="color: blue; font-family: cursive; font-size: x-large "/>
             </center>
         </h:form>
         <h:form rendered="#{user.logeado == true and user.oper_logeado.getTiposoperario().getIdtipooperario()== 2}">
             <p:growl id="messages"/>
-            <p:menubar>  
-                <p:menuitem value="Inicio" action="principal" icon="ui-icon-home" />
+            <p:menubar styleClass="ui-menu">  
+                <p:menuitem value="Inicio" action="principal" icon="ui-icon-home" ajax="false"/>
                 <p:submenu label="Gestion Operarios">
-                    <p:menuitem value="Listado de Operarios" icon="ui-icon-document" action="abmoperarios"/>
+                    <p:menuitem value="Listado de Operarios" icon="ui-icon-document" action="abmoperarios" ajax="false"/>
                     <p:separator />
-                    <p:menuitem value="Nuevo" icon="ui-icon-disk" action="agregaroperarios"/>
-                    <p:separator />
-                    <p:menuitem value="Editar" icon="ui-icon-arrowrefresh-1-w"/>
-                    <p:separator />
-                    <p:menuitem value="Eliminar" icon="ui-icon-close"/>
+                    <p:menuitem value="Nuevo" icon="ui-icon-disk" action="agregaroperarios" ajax="false"/>
                 </p:submenu>
                 <p:submenu label="Gestion Clientes">
-                    <p:menuitem value="Listado de Clientes" icon="ui-icon-document"/>
+                    <p:menuitem value="Listado de Clientes" icon="ui-icon-document" action="abmclientes" ajax="false"/>
                     <p:separator />
-                    <p:menuitem value="Nuevo" icon="ui-icon-disk"/>
-                    <p:separator />
-                    <p:menuitem value="Editar" icon="ui-icon-arrowrefresh-1-w"/>
-                    <p:separator />
-                    <p:menuitem value="Eliminar" icon="ui-icon-close" action="#{user.Logout()}"/>
+                    <p:menuitem value="Nuevo" icon="ui-icon-disk" action="agregarclientes" ajax="false"/>
                 </p:submenu>
-                <f:facet name="options">
-                    <h:commandButton value="Logout" action="#{user.Logout()}"/>
-                </f:facet>
+                <p:submenu label="Gestion Proveedores">
+                    <p:menuitem value="Listado de Proveedores" icon="ui-icon-document" action="abmproveedores" ajax="false"/>
+                    <p:separator />
+                    <p:menuitem value="Nuevo" icon="ui-icon-disk" action="agregarproveedores" ajax="false"/>
+                </p:submenu>
+                 <p:submenu label="Padrones">
+                     <p:submenu label="Tipos Repuestos">
+                         <p:menuitem value="Listado" icon="ui-icon-document" action="abmtiporepuestos" ajax="false"/>
+                         <p:menuitem value="Nuevo" icon="ui-icon-disk" action="agregartiporepuestos" ajax="false"/>
+                     </p:submenu>             
+                    <p:separator />
+                    <p:submenu label="Tipos Calidades">
+                         <p:menuitem value="Listado" icon="ui-icon-document" action="abmtipocalidades" ajax="false"/>
+                         <p:menuitem value="Nuevo" icon="ui-icon-disk" action="agregartipocalidades" ajax="false"/>
+                     </p:submenu>  
+                    <p:separator />
+                    <p:submenu label="Repuestos">
+                         <p:menuitem value="Listado de Repuestos" icon="ui-icon-document" action="abmrepuestos" ajax="false"/>
+                         <p:menuitem value="Nuevo" icon="ui-icon-disk" action="agregarrepuestos" ajax="false"/>
+                     </p:submenu> 
+                    <p:submenu label="Estados de Reparacion">
+                         <p:menuitem value="Listado" icon="ui-icon-document" action="abmestadosreparacion" ajax="false"/>
+                         <p:menuitem value="Nuevo" icon="ui-icon-disk" action="agregarestadosreparacion" ajax="false"/>
+                     </p:submenu> 
+                    <p:submenu label="Tipos Operarios">
+                         <p:menuitem value="Listado" icon="ui-icon-document" action="abmtipooperarios" ajax="false"/>
+                         <p:menuitem value="Nuevo" icon="ui-icon-disk" action="agregartipooperarios" ajax="false"/>
+                     </p:submenu> 
+                </p:submenu>
+                 <p:submenu label="Gestion Ordenes de Recepcion">
+                    <p:menuitem value="Listado" icon="ui-icon-document" action="abmordenesrecep" ajax="false"/>
+                    <p:separator />
+                    <p:menuitem value="Nuevo" icon="ui-icon-disk" action="agregarordenesrecep" ajax="false"/>
+                </p:submenu>
+                <p:submenu label="Gestion Presupuestos">
+                    <p:menuitem value="Listado" icon="ui-icon-document" action="abmpresupuestos" ajax="false"/>
+                </p:submenu>
+                <p:menuitem value="Logout" icon="ui-icon-arrowthickstop-1-e" action="#{user.Logout()}" ajax="false"/>
             </p:menubar>
         </h:form>
     </h:body>
+    <ui:insert name="contenido"/>
 </html>

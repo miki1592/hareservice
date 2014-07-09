@@ -23,16 +23,19 @@ public class Terceros  implements java.io.Serializable {
      private String calle;
      private Integer altura;
      private String dpto;
+     private String usuario;
+     private String contraseña;
      private Boolean esproveedor;
      private Boolean escliente;
      private Set<Ordenesrecepcion> ordenesrecepcions = new HashSet<Ordenesrecepcion>(0);
      private Set<Repuestos> repuestoses = new HashSet<Repuestos>(0);
      private Set<Ordenesreparacion> ordenesreparacions = new HashSet<Ordenesreparacion>(0);
-
+     private String cliente;
+     
     public Terceros() {
     }
 
-    public Terceros(String nombre, String apellido, String razonsocial, String cuit, Integer dni, String email, String telefono, String telefonomovil, String calle, Integer altura, String dpto, Boolean esproveedor, Boolean escliente, Set<Ordenesrecepcion> ordenesrecepcions, Set<Repuestos> repuestoses, Set<Ordenesreparacion> ordenesreparacions) {
+    public Terceros(String nombre, String apellido, String razonsocial, String cuit, Integer dni, String email, String telefono, String telefonomovil, String calle, Integer altura, String dpto,String usuario,String contraseña, Boolean esproveedor, Boolean escliente, Set<Ordenesrecepcion> ordenesrecepcions, Set<Repuestos> repuestoses, Set<Ordenesreparacion> ordenesreparacions) {
        this.nombre = nombre;
        this.apellido = apellido;
        this.razonsocial = razonsocial;
@@ -44,6 +47,8 @@ public class Terceros  implements java.io.Serializable {
        this.calle = calle;
        this.altura = altura;
        this.dpto = dpto;
+       this.usuario=usuario;
+       this.contraseña=contraseña;
        this.esproveedor = esproveedor;
        this.escliente = escliente;
        this.ordenesrecepcions = ordenesrecepcions;
@@ -171,8 +176,25 @@ public class Terceros  implements java.io.Serializable {
         this.ordenesreparacions = ordenesreparacions;
     }
 
+    public String getCliente() {
+        return apellido + ", " + nombre;
+    }
 
+    public String getUsuario() {
+        return usuario;
+    }
 
+    public void setUsuario(String usuario) {
+        this.usuario = usuario;
+    }
+
+    public String getContraseña() {
+        return contraseña;
+    }
+
+    public void setContraseña(String contraseña) {
+        this.contraseña = contraseña;
+    }
 
 }
 

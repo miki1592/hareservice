@@ -10,7 +10,7 @@ and open the template in the editor.
       xmlns:f="http://java.sun.com/jsf/core"
       xmlns:p="http://primefaces.org/ui">
     <h:head>
-        <title>Hare Service</title>
+        <title>Detalles Presupuestos</title>
         <style>
             body 
             {
@@ -50,7 +50,22 @@ and open the template in the editor.
                 <h:form rendered="#{user.logeado==true and user.oper_logeado.getTiposoperario().getIdtipooperario()== 2}">
                     <center>
                         <br/>
-                        <h1>Bienvenido #{user.oper_logeado.nombre} al Sistema Hare Service</h1>
+                        <h:form id="form">
+                            <p:growl id="msgs" />
+                            <p:panel header="Detalles de Presupuestos" style="margin-bottom:20px">
+                                <h:panelGrid columns="2" cellpadding="5">
+                                    <h:outputLabel value="Tareas : " for="txt_tareas"></h:outputLabel>
+                                    <p:inputTextarea rows="6" cols="60" id="txt_tareas" value="#{presu.detallado.tareas}" readonly="true" label="Tareas"></p:inputTextarea>                       
+                                    
+                                    <h:outputLabel value="Tareas Opcionales : " for="txt_opcional"></h:outputLabel>
+                                    <p:inputTextarea rows="6" cols="60" id="txt_opcional" value="#{presu.detallado.opcional}" readonly="true" label="Opcional"></p:inputTextarea>
+                                    
+                                    <h:outputLabel value="Precio Estimado :$ " for="txt_precioe"></h:outputLabel>
+                                    <p:inputText id="txt_precioe" value="#{presu.detallado.precioestimado}" readonly="true" label="PrecioEstimado"></p:inputText>
+
+                                </h:panelGrid>                 
+                            </p:panel>                         
+                        </h:form>
                     </center>
                 </h:form>
             </ui:define>                                   

@@ -10,7 +10,7 @@ and open the template in the editor.
       xmlns:f="http://java.sun.com/jsf/core"
       xmlns:p="http://primefaces.org/ui">
     <h:head>
-        <title>Hare Service</title>
+        <title>Agregar Estados de Reparaciones</title>
         <style>
             body 
             {
@@ -50,7 +50,19 @@ and open the template in the editor.
                 <h:form rendered="#{user.logeado==true and user.oper_logeado.getTiposoperario().getIdtipooperario()== 2}">
                     <center>
                         <br/>
-                        <h1>Bienvenido #{user.oper_logeado.nombre} al Sistema Hare Service</h1>
+                        <h:form id="form">
+                            <p:growl id="msgs" />
+                            <p:panel header="Crear un nuevo Estado de Reparacion" style="margin-bottom:20px">
+                                <h:panelGrid columns="2" cellpadding="5">
+                                    <h:outputLabel value="Estado : *" for="txt_est"></h:outputLabel>
+                                    <p:inputText id="txt_est" value="#{estad.agregar.estado}" label="Estado" required="true" requiredMessage="Ingrese estado"></p:inputText>
+
+                                    <p:commandButton id="btn_reset" value="Limpiar" type="reset" styleClass="btn"/>                      
+                                    <p:commandButton value="Guardar" id="btn_guardar" action="#{estad.AgregarEstadoReparacion()}" icon="ui-icon-disk" ajax="false" styleClass="btn"/> 
+                                    
+                                </h:panelGrid>
+                            </p:panel>
+                        </h:form>
                     </center>
                 </h:form>
             </ui:define>                                   

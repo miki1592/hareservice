@@ -8,7 +8,7 @@
             <column name="idordenrecep" />
             <generator class="identity" />
         </id>
-        <many-to-one name="terceros" class="Modelo.Terceros" fetch="select">
+        <many-to-one name="terceros" class="Modelo.Terceros" fetch="join" lazy="false">
             <column name="cliente_id" not-null="true" />
         </many-to-one>
         <property name="detalle" type="string">
@@ -16,6 +16,15 @@
         </property>
         <property name="fecha" type="date">
             <column name="fecha" length="10" not-null="true" />
+        </property>
+        <property name="descripcion" type="string">
+            <column name="descripcion" length="65535"/>
+        </property>
+        <property name="adjunto" type="string">
+            <column name="adjunto" length="65535"/>
+        </property>
+        <property name="numero" type="int">
+            <column name="numero"/>
         </property>
         <set name="presupuestoses" inverse="true">
             <key>

@@ -8,13 +8,13 @@
             <column name="idrepuesto" />
             <generator class="identity" />
         </id>
-        <many-to-one name="terceros" class="Modelo.Terceros" fetch="select">
+        <many-to-one name="terceros" class="Modelo.Terceros" fetch="join" lazy="false">
             <column name="proveedor_id" not-null="true" />
         </many-to-one>
-        <many-to-one name="tiposcalidad" class="Modelo.Tiposcalidad" fetch="select">
+        <many-to-one name="tiposcalidad" class="Modelo.Tiposcalidad" fetch="join" lazy="false">
             <column name="tipocalidad_id" not-null="true" />
         </many-to-one>
-        <many-to-one name="tiposrepuesto" class="Modelo.Tiposrepuesto" fetch="select">
+        <many-to-one name="tiposrepuesto" class="Modelo.Tiposrepuesto" fetch="join" lazy="false">
             <column name="tiporepuesto_id" not-null="true" />
         </many-to-one>
         <property name="precio" type="double">
