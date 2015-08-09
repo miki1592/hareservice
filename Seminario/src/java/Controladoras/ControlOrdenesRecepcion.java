@@ -12,10 +12,7 @@ import java.util.ArrayList;
 import javax.faces.application.FacesMessage;
 import javax.faces.context.FacesContext;
 
-/**
- *
- * @author romero
- */
+
 public class ControlOrdenesRecepcion 
 {
     public ControlOrdenesRecepcion()
@@ -191,6 +188,19 @@ public class ControlOrdenesRecepcion
             return null;
         }
     }
+    
+     public ArrayList Listarordenxcliente(int idcliente)
+    {
+        try
+        {
+            return d_ordenes_recep.ListarByCliente(idcliente);
+        }
+        catch (Exception ex)
+        {
+            System.out.println("Ha ocurrido una excepcion en controladora" + ex.getMessage());
+        }
+        return null;
+    }  
     
     public Terceros[] ListarClientes()
     {

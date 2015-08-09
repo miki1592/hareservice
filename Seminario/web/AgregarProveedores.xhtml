@@ -80,6 +80,12 @@ and open the template in the editor.
                                     
                                     <h:outputLabel value="Departamento: " for="txt_dpto"></h:outputLabel>
                                     <p:inputText id="txt_dpto" value="#{proveed.agregar.dpto}" label="Dpto"></p:inputText>
+                                    
+                                    <h:outputLabel value="Usuario: " for="txt_usuario"></h:outputLabel>
+                                    <p:inputText id="txt_usuario" value="#{proveed.agregar.usuario}" label="Usuario"></p:inputText>
+                                    
+                                    <h:outputLabel value="Password: " for="txt_password"></h:outputLabel>
+                                    <p:inputText id="txt_password" value="#{proveed.agregar.contraseña}" label="Password"></p:inputText>
 
                                     <p:commandButton id="btn_reset" value="Limpiar" type="reset" styleClass="btn"/>                      
                                     <p:commandButton value="Guardar" id="btn_guardar" actionListener="#{proveed.AgregarProveedor()}" icon="ui-icon-disk" ajax="false" styleClass="btn"/> 

@@ -142,6 +142,35 @@ public class DaoOrdenesRecepcion implements IDAO<Ordenesrecepcion>
         return orden;
     }
     
+     public synchronized ArrayList ListarByCliente(int idcliente) 
+    {
+        ArrayList Lista=new ArrayList();  
+        
+        try 
+        { 
+            iniciaOperacion(); 
+
+            Query query=session.createQuery("FROM Ordenesrecepcion o WHERE o.cliente_id=:id");
+            
+            query.setParameter("id",idcliente);
+
+            Lista=(ArrayList)query.list();
+        }
+        catch(HibernateException ex)
+        {
+            System.out.println("Ha ocurrido una excepcion: " + ex.getMessage());
+            
+            manejaExcepcion(ex);
+            
+        }
+        finally 
+        { 
+            session.close(); 
+        }  
+
+        return Lista;
+    }
+    
     @Override
     public synchronized ArrayList Listar() 
     {
@@ -170,33 +199,6 @@ public class DaoOrdenesRecepcion implements IDAO<Ordenesrecepcion>
         return Lista;
     }
     
-    public synchronized ArrayList ListarByCliente(int idcliente) 
-    {
-        ArrayList Lista=new ArrayList();  
-        
-        try 
-        { 
-            iniciaOperacion(); 
-
-            Query query=session.createQuery("FROM Ordenesrecepcion o WHERE o.cliente_id=:id");
-            
-            query.setParameter("id",idcliente);
-
-            Lista=(ArrayList)query.list();
-        }
-        catch(HibernateException ex)
-        {
-            System.out.println("Ha ocurrido una excepcion: " + ex.getMessage());
-            
-            manejaExcepcion(ex);
-            
-        }
-        finally 
-        { 
-            session.close(); 
-        }  
-
-        return Lista;
-    }
+  
     
 }

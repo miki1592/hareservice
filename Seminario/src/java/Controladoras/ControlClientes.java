@@ -5,6 +5,7 @@
 package Controladoras;
 
 import Daos.DaoClientes;
+import Modelo.EmailSenderService;
 import Modelo.Terceros;
 import java.util.ArrayList;
 import javax.faces.application.FacesMessage;
@@ -31,6 +32,7 @@ public class ControlClientes
     private Terceros agregar=new Terceros();
     
     private Terceros editar=new Terceros();
+    private EmailSenderService sendmail= new EmailSenderService();
 
     public void VaciarCampos() 
     {
@@ -71,6 +73,7 @@ public class ControlClientes
             }
 
             addMessage("Cliente agregado correctamente");
+            sendmail.sendEmail(agregar.getEmail(),agregar.getUsuario(),agregar.getContraseña());
 
             return Salida;
         }

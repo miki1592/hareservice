@@ -3,14 +3,22 @@
 To change this template, choose Tools | Templates
 and open the template in the editor.
 -->
-<!DOCTYPE html>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+
 <html xmlns="http://www.w3.org/1999/xhtml"
       xmlns:h="http://java.sun.com/jsf/html"
       xmlns:ui="http://java.sun.com/jsf/facelets"
       xmlns:f="http://java.sun.com/jsf/core"
       xmlns:p="http://primefaces.org/ui">
+    
     <h:head>
-        <title>Listado de Repuestos</title>
+        <title>Listado de Ordenes de Recepcion</title>
+         <meta charset="utf-8"/>
+  <meta name="viewport" content="width=device-width, initial-scale=1"/>
+  <link rel="stylesheet" href="http://maxcdn.bootstrapcdn.com/bootstrap/3.3.5/css/bootstrap.min.css"/>
+  <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.11.3/jquery.min.js"></script>
+  <script src="http://maxcdn.bootstrapcdn.com/bootstrap/3.3.5/js/bootstrap.min.js"></script>
+        
         <style>
             body 
             {
@@ -92,41 +100,42 @@ and open the template in the editor.
             }
         </style>
     </h:head>
-    <h:body>
-        <ui:composition template="MenuAdmin.xhtml">
-            <ui:define name="contenido" >
-                <h:form rendered="#{user.logeado==true and user.oper_logeado.getTiposoperario().getIdtipooperario()== 2}">
+ <h:body>
+       <ui:composition template="MenuClientes.xhtml">
+            <ui:define name="contenido">
+                <h:form rendered="#{user.logeado==true}">
                     <center>
-                        <h1>Listado de Respuestos</h1>            
-                        <p:outputPanel id="repuestolist">
-                            <p:dataTable value="#{resp.ListarRepuestos()}" var="res" id="repuestoTable">
-                                <p:column headerText="Codigo">
-                                    <h:outputText value="#{res.codigoprov}" />
+                        <p:outputPanel id="ordenesReceplist">
+                            <p:dataTable value="#{ordenrecep.ListarOrdenesRecepcion()}" var="ordrecep" id="ordenesRecepTable">
+                                <p:column headerText="Numero">
+                                    <h:outputText value="#{ordrecep.numero}"/>
                                 </p:column>
-                                <p:column headerText="Tipo Repuesto">
-                                    <h:outputText value="#{resp.listarTiposRepuestos()}" />
+                                
+                                <p:column headerText="Descripcion">
+                                    <h:outputText value="#{ordrecep.descripcion}"/>
                                 </p:column>
-                                <p:column headerText="Proveedor">
-                                    <h:outputText value="#{res.terceros.razonsocial}" />
+                                
+                                <p:column headerText="Fecha">
+                                    <h:outputText value="#{ordrecep.fecha}"/>
                                 </p:column>
-                                <p:column headerText="Tipo Calidad">
-                                    <h:outputText value="#{resp.listarTiposCalidad()}" />
-                                </p:column>    
-                                <p:column headerText="Precio">
-                                    <h:outputText value="#{res.precio}" />
-                                </p:column>
-                                <p:column headerText="Origen">
-                                    <h:outputText value="#{res.origen}" />
-                                </p:column>
+        
+                                <p:column headerText="Cliente">
+                                    <h:outputText value="#{ordrecep.terceros.apellido}, #{ordrecep.terceros.nombre}"/>
+                                </p:column>                  
                                 <p:column headerText="Acción">
                                     <center>
-                                        <p:commandButton value="Eiminar" id="btn_Eliminar" actionListener="#{resp.EliminarRepuesto(res)}" icon="ui-icon-trash" ajax="false" styleClass="btn"/>      
+                                        <p:commandButton value="Ver Detalles" id="btn_Detalles" action="#{ordenrecep.VerDetalles(ordrecep)}" icon="ui-icon-folder-open" ajax="false" styleClass="btn"/>      
                                     </center>
                                 </p:column>
                                 <p:column headerText="Acción">
                                     <center>
-                                        <p:commandButton value="Editar" id="btn_Elegir" action="#{resp.SeleccionarRepuesto(res)}" icon="ui-icon-pencil"  ajax="false" styleClass="btn"/>                           
-                                    </center>                     
+                                        <p:commandButton value="Eiminar" id="btn_Eliminar" actionListener="#{ordenrecep.EliminarOrdenRecepcion(ordrecep)}" icon="ui-icon-trash" ajax="false" styleClass="btn"/>      
+                                    </center>
+                                </p:column>
+                                <p:column headerText="Acción">
+                                    <center>
+                                        <p:commandButton value="Crear Presupuesto" id="btn_crear" action="#{presu.CrearPresupuesto(ordrecep)}" icon="ui-icon-clipboard" ajax="false" styleClass="btn"/>
+                                    </center>
                                 </p:column>
                             </p:dataTable>
                         </p:outputPanel>

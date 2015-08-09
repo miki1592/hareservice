@@ -182,17 +182,21 @@ public class ControlOperarios
  
             if (oper_logeado != null) 
             {
-                if(oper_logeado.getTiposoperario().getIdtipooperario()== 2)
+               if(oper_logeado.getTiposoperario().getIdtipooperario()== 2)
                 {
                     salida = "logueadoadmin";
                 }
-                else
+                else if(oper_logeado.getTiposoperario().getIdtipooperario()==4)
+                {
+                    salida = "logeocliente";
+                }
+                else 
                 {
                     salida="logueonormal";
                 }
                 
                 logeado=true;
-            }
+        }
         }
         catch(Exception ex)
         {
@@ -218,9 +222,12 @@ public class ControlOperarios
         try
         {
             return d_operarios.Listar();
+            
         }
         catch(Exception ex)
         {
+          
+
             System.out.println("Ha ocurrido una excepcion en controladora: " +ex.getMessage());
             
             return null;
